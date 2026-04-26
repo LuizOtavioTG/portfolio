@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="90" height="93" viewBox="0 0 90 93" role="img" aria-labelledby="title desc">
+  <title id="title">LO icon</title>
+  <desc id="desc">Ícone com quadrado verde escuro, borda verde clara e texto LO em verde claro usando fonte monoespaçada.</desc>
+  <style>
+    :root {
+      --font-mono: "Geist Mono", "SFMono-Regular", Consolas, monospace;
+    }
+
+    .label {
+      font-family: var(--font-mono);
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      fill: #99ff67;
+      font-feature-settings: "zero" 0;
+    }
+  </style>
+
+  <rect x="0" y="1" width="90" height="90" fill="#142a12"/>
+  <path fill="#4a8152" fill-rule="evenodd" d="M0 1H90V91H0V1ZM3 4V88H87V4H3Z"/>
+  <text x="45" y="48" class="label" text-anchor="middle" dominant-baseline="middle">LO</text>
+</svg>
