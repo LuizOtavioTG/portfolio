@@ -1,0 +1,14 @@
+<section id="apresentacao" class="hero section-grid">
+  <div class="hero-copy">
+    <p class="eyebrow">Portfolio em construcao / Etapa 01</p>
+    <h1>Desenvolvedor full-stack criando aplicações web.</h1>
+    <p class="hero-text">{{ profile().intro }}</p>
+
+    <div class="hero-actions" aria-label="Acoes principais">
+      <a class="button button-primary" href="mailto:contato@exemplo.com">Entrar em contato</a>
+      <a class="button button-secondary" href="">Ver projetos</a>
+    </div>
+  </div>
+
+  <app-terminal-panel [owner]="profile().name" [role]="profile().role" />
+</section>

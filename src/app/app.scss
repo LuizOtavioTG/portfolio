@@ -1,0 +1,62 @@
+:host {
+  --bg-soft: #090d0a;
+  --panel: rgba(13, 18, 14, 0.86);
+  --line: rgba(185, 255, 190, 0.18);
+  --line-strong: rgba(185, 255, 190, 0.38);
+  --text: #edf7ec;
+  --muted: #8e9d8c;
+  --faint: #566254;
+  --green: #b8ff73;
+  --green-strong: #66ff8f;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.48);
+  display: block;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 72% 8%, rgba(102, 255, 143, 0.13), transparent 28rem),
+    linear-gradient(180deg, #071007 0%, #050705 38%, #030403 100%);
+}
+
+:host::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  content: "";
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(185, 255, 190, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(185, 255, 190, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+}
+
+.noise,
+.scanline {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.noise {
+  z-index: 10;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.65'/%3E%3C/svg%3E");
+}
+
+.scanline {
+  z-index: 11;
+  opacity: 0.14;
+  background: repeating-linear-gradient(to bottom, transparent 0 5px, rgba(184, 255, 115, 0.08) 6px);
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+@media (max-width: 520px) {
+  main {
+    width: min(100% - 22px, 1180px);
+  }
+}
