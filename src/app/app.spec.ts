@@ -21,4 +21,14 @@ describe('App', () => {
     expect(compiled.querySelector('h1')?.textContent).toContain('Interfaces precisas');
     expect(compiled.textContent).toContain('Desenvolvedor full-stack');
   });
+
+  it('should render featured project placeholders', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent).toContain('Projetos em destaque');
+    expect(compiled.textContent).toContain('Pomodoro Timer');
+    expect(compiled.textContent).toContain('Stock Manager');
+    expect(compiled.textContent).toContain('Deploy pendente');
+  });
 });

@@ -1,0 +1,116 @@
+<section id="projetos" class="projects-section" aria-labelledby="projects-title">
+  <div class="section-heading">
+    <p class="eyebrow">Projetos em destaque / Etapa 02</p>
+    <h2 id="projects-title">Experiencias prontas para receber deploys reais.</h2>
+    <p class="section-copy">
+      Por enquanto os projetos ficam como slots estruturados. Quando cada app estiver publicado,
+      o preview pode virar iframe, imagem, video ou link para uma rota dedicada.
+    </p>
+  </div>
+
+  <div class="carousel-shell" aria-roledescription="carousel" aria-label="Projetos em destaque">
+    <div class="carousel-controls">
+      <p>{{ (activeIndex + 1).toString().padStart(2, '0') }} / {{ projects().length.toString().padStart(2, '0') }}</p>
+
+      <div>
+        <button type="button" class="control-button" aria-label="Projeto anterior" (click)="previousProject()">
+          &larr;
+        </button>
+        <button type="button" class="control-button" aria-label="Proximo projeto" (click)="nextProject()">
+          &rarr;
+        </button>
+      </div>
+    </div>
+
+    <div class="carousel-viewport">
+      <div class="carousel-track" [style.transform]="'translateX(-' + activeIndex * 100 + '%)'">
+        @for (project of projects(); track project.name; let index = $index) {
+          <article
+            class="project-card"
+            aria-roledescription="slide"
+            [attr.aria-label]="project.name"
+            [attr.aria-hidden]="activeIndex !== index"
+          >
+            <div class="project-preview" [attr.data-kind]="project.preview.kind">
+              <div class="preview-bar">
+                <span></span>
+                <span></span>
+                <span></span>
+                <strong>preview-{{ (index + 1).toString().padStart(2, '0') }}</strong>
+              </div>
+
+              <div class="preview-body">
+                <p>{{ project.preview.label }}</p>
+                <span>{{ project.status }}</span>
+              </div>
+            </div>
+
+            <div class="project-content">
+              <div class="card-meta">
+                <span>{{ (index + 1).toString().padStart(3, '0') }}</span>
+                <span>{{ project.status }}</span>
+              </div>
+
+              <h3>{{ project.name }}</h3>
+              <p class="summary">{{ project.summary }}</p>
+
+              <ul class="tech-list" aria-label="Tecnologias usadas">
+                @for (technology of project.technologies; track technology) {
+                  <li>{{ technology }}</li>
+                }
+              </ul>
+
+              <div class="details-grid">
+                <div>
+                  <h4>Funcionalidades</h4>
+                  <ul>
+                    @for (highlight of project.highlights; track highlight) {
+                      <li>{{ highlight }}</li>
+                    }
+                  </ul>
+                </div>
+
+                <div>
+                  <h4>Decisao tecnica</h4>
+                  <p>{{ project.decision }}</p>
+                </div>
+              </div>
+
+              <div class="project-actions">
+                @if (project.liveUrl) {
+                  <a class="button button-primary" [href]="project.liveUrl" target="_blank" rel="noopener">
+                    Abrir projeto
+                  </a>
+                } @else {
+                  <span class="button button-disabled" aria-disabled="true">Deploy pendente</span>
+                }
+
+                @if (project.githubUrl) {
+                  <a class="button button-secondary" [href]="project.githubUrl" target="_blank" rel="noopener">
+                    GitHub
+                  </a>
+                } @else {
+                  <span class="button button-disabled" aria-disabled="true">GitHub pendente</span>
+                }
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+
+    <div class="carousel-dots" aria-label="Selecionar projeto">
+      @for (project of projects(); track project.name; let index = $index) {
+        <button
+          type="button"
+          [class.is-active]="activeIndex === index"
+          [attr.aria-label]="'Mostrar projeto ' + project.name"
+          [attr.aria-current]="activeIndex === index ? 'true' : null"
+          (click)="selectProject(index)"
+        >
+          <span>{{ (index + 1).toString().padStart(2, '0') }}</span>
+        </button>
+      }
+    </div>
+  </div>
+</section>
