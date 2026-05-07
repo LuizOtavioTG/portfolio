@@ -31,4 +31,14 @@ describe('App', () => {
     expect(compiled.textContent).toContain('Stock Manager');
     expect(compiled.textContent).toContain('Deploy pendente');
   });
+
+  it('should render skill categories', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent).toContain('Stack e habilidades');
+    expect(compiled.textContent).toContain('Front-end');
+    expect(compiled.textContent).toContain('Spring Boot');
+    expect(compiled.textContent).toContain('Nginx');
+  });
 });

@@ -1,0 +1,30 @@
+<section id="stack" class="stack-section" aria-labelledby="stack-title">
+  <div class="section-heading">
+    <p class="eyebrow">Stack e habilidades / Etapa 03</p>
+    <h2 id="stack-title">Tecnologias principais</h2>
+    <p class="section-copy">
+      Ferramentas que aparecem nos projetos e no tipo de produto que quero construir:
+      front-end consistente, APIs bem estruturadas, dados confiaveis e deploy previsivel.
+    </p>
+  </div>
+
+  <div class="stack-grid">
+    @for (category of categories(); track category.name; let index = $index) {
+      <article class="stack-card">
+        <div class="card-meta">
+          <span>{{ (index + 1).toString().padStart(2, '0') }}</span>
+          <span>{{ category.name }}</span>
+        </div>
+
+        <h3>{{ category.name }}</h3>
+        <p>{{ category.description }}</p>
+
+        <ul>
+          @for (skill of category.skills; track skill) {
+            <li>{{ skill }}</li>
+          }
+        </ul>
+      </article>
+    }
+  </div>
+</section>

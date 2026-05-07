@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { FeaturedProject, FeaturedProjects } from './components/featured-projects/featured-projects';
 import { IntroHero } from './components/intro-hero/intro-hero';
 import { SiteHeader } from './components/site-header/site-header';
+import { SkillCategory, SkillStack } from './components/skill-stack/skill-stack';
 
 @Component({
   selector: 'app-root',
-  imports: [SiteHeader, IntroHero, FeaturedProjects],
+  imports: [SiteHeader, IntroHero, FeaturedProjects, SkillStack],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -59,6 +60,29 @@ export class App {
         kind: 'placeholder',
         label: 'Preview das ordens de servico sera ativado apos o deploy.',
       },
+    },
+  ];
+
+  protected readonly skillCategories: SkillCategory[] = [
+    {
+      name: 'Front-end',
+      description: 'Interfaces web, experiencia do usuario e aplicacoes modernas.',
+      skills: ['Angular', 'React', 'Next.js', 'TypeScript'],
+    },
+    {
+      name: 'Back-end',
+      description: 'APIs, regras de negocio, autenticacao e integracao entre sistemas.',
+      skills: ['Java', 'Spring Boot', 'Node.js'],
+    },
+    {
+      name: 'Banco de dados',
+      description: 'Modelagem, persistencia e consultas para aplicacoes transacionais.',
+      skills: ['PostgreSQL', 'MySQL', 'MongoDB'],
+    },
+    {
+      name: 'Ferramentas',
+      description: 'Versionamento, conteinerizacao e infraestrutura de apoio ao deploy.',
+      skills: ['Git', 'Docker', 'Nginx'],
     },
   ];
 }
