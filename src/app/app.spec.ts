@@ -41,4 +41,14 @@ describe('App', () => {
     expect(compiled.textContent).toContain('Spring Boot');
     expect(compiled.textContent).toContain('Nginx');
   });
+
+  it('should render the about section', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent).toContain('Sobre voce');
+    expect(compiled.textContent).toContain('Administracao pela UEL');
+    expect(compiled.textContent).toContain('Integra.do');
+    expect(compiled.textContent).toContain('cursos do LinkedIn');
+  });
 });

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AboutSection, AboutSectionContent } from './components/about-section/about-section';
 import { FeaturedProject, FeaturedProjects } from './components/featured-projects/featured-projects';
 import { IntroHero } from './components/intro-hero/intro-hero';
 import { SiteHeader } from './components/site-header/site-header';
@@ -6,7 +7,7 @@ import { SkillCategory, SkillStack } from './components/skill-stack/skill-stack'
 
 @Component({
   selector: 'app-root',
-  imports: [SiteHeader, IntroHero, FeaturedProjects, SkillStack],
+  imports: [SiteHeader, IntroHero, FeaturedProjects, SkillStack, AboutSection],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -23,42 +24,42 @@ export class App {
       name: 'Pomodoro Timer',
       status: 'Aguardando deploy',
       summary:
-        'Sistema de produtividade baseado na tecnica Pomodoro, com frontend Angular e backend Java/Spring Boot.',
+        'Sistema de produtividade baseado na técnica Pomodoro, com frontend Angular e backend Java/Spring Boot.',
       technologies: ['Angular', 'Java', 'Spring Boot'],
-      highlights: ['Ciclos de foco', 'Pausas programadas', 'Historico de sessoes', 'Gerenciamento de dados'],
+      highlights: ['Ciclos de foco', 'Pausas programadas', 'Histórico de sessões', 'Gerenciamento de dados'],
       decision:
-        'Separar a experiencia de controle do timer no frontend e manter o backend preparado para persistencia e historico.',
+        'Separar a experiência de controle do timer no frontend e manter o backend preparado para persistência e histórico.',
       preview: {
         kind: 'placeholder',
-        label: 'Preview do Pomodoro sera ativado apos o deploy.',
+        label: 'Preview do Pomodoro será ativado após o deploy.',
       },
     },
     {
       name: 'Stock Manager',
       status: 'Aguardando deploy',
       summary:
-        'API para gerenciamento de produtos, categorias, estoque e inventario com autenticacao JWT e ambiente Docker.',
+        'API para gerenciamento de produtos, categorias, estoque e inventário com autenticação JWT e ambiente Docker.',
       technologies: ['Java 17', 'Spring Boot 3.4.5', 'PostgreSQL', 'Flyway', 'JWT', 'Docker'],
-      highlights: ['Autenticacao JWT', 'Permissoes por perfil', 'CRUD de produtos', 'Controle de estoque'],
+      highlights: ['Autenticação JWT', 'Permissões por perfil', 'CRUD de produtos', 'Controle de estoque'],
       decision:
-        'Organizar a API em camadas, com validacao, seguranca e migrations para manter o dominio previsivel.',
+        'Organizar a API em camadas, com validação, segurança e migrations para manter o domínio previsível.',
       preview: {
         kind: 'placeholder',
-        label: 'Preview do Stock Manager sera ativado apos o deploy.',
+        label: 'Preview do Stock Manager será ativado após o deploy.',
       },
     },
     {
-      name: 'Sistema de Ordens de Servico',
+      name: 'Sistema de Ordens de Serviço',
       status: 'Aguardando deploy',
       summary:
-        'Plataforma para gerenciamento de ordens de servico, clientes, equipe, agenda e operacao mobile/offline.',
+        'Plataforma para gerenciamento de ordens de serviço, clientes, equipe, agenda e operação mobile/offline.',
       technologies: ['Next.js', 'React', 'TypeScript', 'Java 17', 'Spring Boot', 'PostgreSQL'],
       highlights: ['Dashboard de OS', 'Controle de acesso', 'Agenda', 'Mobile Android', 'Offline sync'],
       decision:
-        'Combinar frontend web/mobile com API Spring Boot para suportar operacao em campo e sincronizacao posterior.',
+        'Combinar frontend web/mobile com API Spring Boot para suportar operação em campo e sincronização posterior.',
       preview: {
         kind: 'placeholder',
-        label: 'Preview das ordens de servico sera ativado apos o deploy.',
+        label: 'Preview das ordens de serviço será ativado após o deploy.',
       },
     },
   ];
@@ -66,23 +67,50 @@ export class App {
   protected readonly skillCategories: SkillCategory[] = [
     {
       name: 'Front-end',
-      description: 'Interfaces web, experiencia do usuario e aplicacoes modernas.',
+      description: 'Interfaces web, experiência do usuário e aplicações modernas.',
       skills: ['Angular', 'React', 'Next.js', 'TypeScript'],
     },
     {
       name: 'Back-end',
-      description: 'APIs, regras de negocio, autenticacao e integracao entre sistemas.',
+      description: 'APIs, regras de negócio, autenticação e integração entre sistemas.',
       skills: ['Java', 'Spring Boot', 'Node.js'],
     },
     {
       name: 'Banco de dados',
-      description: 'Modelagem, persistencia e consultas para aplicacoes transacionais.',
+      description: 'Modelagem, persistência e consultas para aplicações transacionais.',
       skills: ['PostgreSQL', 'MySQL', 'MongoDB'],
     },
     {
       name: 'Ferramentas',
-      description: 'Versionamento, conteinerizacao e infraestrutura de apoio ao deploy.',
+      description: 'Versionamento, conteinerização e infraestrutura de apoio ao deploy.',
       skills: ['Git', 'Docker', 'Nginx'],
     },
   ];
+
+  protected readonly aboutContent: AboutSectionContent = {
+    intro:
+      'Sou desenvolvedor full-stack, formado em Administração pela UEL e estudante de Engenharia de Software. Minha trajetória combina negócios, marketing e tecnologia, passando por consultoria empresarial, gestão de marketing e desenvolvimento de software.',
+    experience:
+      'Atuei como desenvolvedor júnior na Integra.do, trabalhando com integrações de software e SDKs. Hoje trabalho como autônomo, focado no desenvolvimento de aplicações web modernas, funcionais e bem estruturadas.',
+    difference:
+      'Minha principal diferença é unir visão de negócio com conhecimento técnico para criar soluções que sejam úteis, bem pensadas e preparadas para uso real.',
+    details: [
+      {
+        title: 'Busco',
+        text: 'Vagas e projetos full-stack em que eu possa atuar em produtos web, APIs e sistemas com impacto prático para o negócio.',
+      },
+      {
+        title: 'Como trabalho',
+        text: 'Gosto de entender o problema antes da tela ou do código, quebrar entregas em etapas pequenas e manter a solução simples de evoluir.',
+      },
+      {
+        title: 'Interesses',
+        text: 'Aplicações web modernas, integrações, automação de processos, experiência do usuário, arquitetura de APIs e produtos SaaS.',
+      },
+      {
+        title: 'Cursos',
+        text: 'Seção em aberto. A ideia é encontrar uma forma consistente de trazer ou espelhar os cursos do LinkedIn.',
+      },
+    ],
+  };
 }
