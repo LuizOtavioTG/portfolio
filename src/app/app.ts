@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AboutSection, AboutSectionContent } from './components/about-section/about-section';
+import { ContactInfo, ContactSection } from './components/contact-section/contact-section';
 import { FeaturedProject, FeaturedProjects } from './components/featured-projects/featured-projects';
 import { IntroHero } from './components/intro-hero/intro-hero';
 import { SiteHeader } from './components/site-header/site-header';
@@ -7,7 +8,7 @@ import { SkillCategory, SkillStack } from './components/skill-stack/skill-stack'
 
 @Component({
   selector: 'app-root',
-  imports: [SiteHeader, IntroHero, FeaturedProjects, SkillStack, AboutSection],
+  imports: [SiteHeader, IntroHero, FeaturedProjects, SkillStack, AboutSection, ContactSection],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -112,5 +113,12 @@ export class App {
         text: 'Seção em aberto. A ideia é encontrar uma forma consistente de trazer ou espelhar os cursos do LinkedIn.',
       },
     ],
+  };
+
+  protected readonly contactInfo: ContactInfo = {
+    email: 'bc.luizo@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/luiz-otavio-torrecillas-gil/',
+    github: 'https://github.com/LuizOtavioTG',
+    resumeStatus: 'Currículo em PDF pendente',
   };
 }

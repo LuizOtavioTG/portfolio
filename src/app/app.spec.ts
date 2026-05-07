@@ -51,4 +51,13 @@ describe('App', () => {
     expect(compiled.textContent).toContain('Integra.do');
     expect(compiled.textContent).toContain('cursos do LinkedIn');
   });
+
+  it('should render contact information', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent).toContain('Currículo e contato');
+    expect(compiled.textContent).toContain('bc.luizo@gmail.com');
+    expect(compiled.textContent).toContain('LuizOtavioTG');
+  });
 });

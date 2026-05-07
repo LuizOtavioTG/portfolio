@@ -1,0 +1,45 @@
+<section id="contato" class="contact-section" aria-labelledby="contact-title">
+  <div class="contact-main">
+    <p class="eyebrow">Contato / Etapa 05</p>
+    <h2 id="contact-title">Vamos conversar sobre a próxima aplicação.</h2>
+    <p>
+      Estou disponível para oportunidades e projetos full-stack. O caminho mais direto é pelo e-mail,
+      mas LinkedIn e GitHub também ficam à mão.
+    </p>
+
+    <div class="contact-actions">
+      <a class="primary-contact" [href]="'mailto:' + contact().email">
+        Enviar email
+      </a>
+      <a class="secondary-contact" [href]="contact().github" target="_blank" rel="noopener">
+        Ver GitHub
+      </a>
+    </div>
+  </div>
+
+  <aside class="contact-panel" aria-label="Canais de contato">
+    <div class="panel-bar">
+      <span></span>
+      <span></span>
+      <span></span>
+      <strong>contact.channels</strong>
+    </div>
+
+    <div class="contact-grid">
+      <a [href]="'mailto:' + contact().email">
+        <span>Email</span>
+        <strong>{{ contact().email }}</strong>
+      </a>
+
+      <a [href]="contact().linkedin" target="_blank" rel="noopener">
+        <span>LinkedIn</span>
+        <strong>luiz-otavio-torrecillas-gil</strong>
+      </a>
+
+      <a [href]="contact().github" target="_blank" rel="noopener">
+        <span>GitHub</span>
+        <strong>LuizOtavioTG</strong>
+      </a>
+    </div>
+  </aside>
+</section>
