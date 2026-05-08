@@ -3,7 +3,7 @@
   top: 0;
   z-index: 20;
   display: block;
-  width: min(1180px, calc(100% - 32px));
+  width: var(--page-width);
   margin: 0 auto;
   backdrop-filter: blur(18px);
 }
@@ -76,7 +76,7 @@
 
 @media (max-width: 520px) {
   :host {
-    width: min(100% - 22px, 1180px);
+    width: calc(100% - 22px);
   }
 
   .nav-links a {

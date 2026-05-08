@@ -4,8 +4,8 @@
 
 .section-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.72fr);
-  gap: 40px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(360px, 0.65fr);
+  gap: clamp(32px, 5vw, 86px);
 }
 
 .hero {
@@ -24,7 +24,7 @@
 }
 
 h1 {
-  max-width: 850px;
+  max-width: 1120px;
   margin-top: 0;
   margin-bottom: 24px;
   font-size: clamp(56px, 8vw, 124px);

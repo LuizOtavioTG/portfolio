@@ -51,12 +51,12 @@
 main {
   position: relative;
   z-index: 1;
-  width: min(1180px, calc(100% - 32px));
+  width: var(--page-width);
   margin: 0 auto;
 }
 
 @media (max-width: 520px) {
   main {
-    width: min(100% - 22px, 1180px);
+    width: calc(100% - 22px);
   }
 }
