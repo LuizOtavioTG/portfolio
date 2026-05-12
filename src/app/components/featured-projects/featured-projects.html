@@ -1,10 +1,10 @@
 <section id="projetos" class="projects-section" aria-labelledby="projects-title">
   <div class="section-heading">
     <p class="eyebrow">Projetos em destaque / Etapa 02</p>
-    <h2 id="projects-title">Experiencias prontas para receber deploys reais.</h2>
+    <h2 id="projects-title">Experiências publicadas e prontas para teste.</h2>
     <p class="section-copy">
-      Por enquanto os projetos ficam como slots estruturados. Quando cada app estiver publicado,
-      o preview pode virar iframe, imagem, video ou link para uma rota dedicada.
+      Alguns projetos já podem ser usados direto por aqui. Os demais permanecem como slots
+      estruturados até receberem deploy, imagem, vídeo ou uma rota dedicada.
     </p>
   </div>
 
@@ -16,7 +16,7 @@
         <button type="button" class="control-button" aria-label="Projeto anterior" (click)="previousProject()">
           &larr;
         </button>
-        <button type="button" class="control-button" aria-label="Proximo projeto" (click)="nextProject()">
+        <button type="button" class="control-button" aria-label="Próximo projeto" (click)="nextProject()">
           &rarr;
         </button>
       </div>
@@ -27,11 +27,16 @@
         @for (project of projects(); track project.name; let index = $index) {
           <article
             class="project-card"
+            [style.grid-template-columns]="expandedIndex === index ? '1fr' : null"
             aria-roledescription="slide"
             [attr.aria-label]="project.name"
             [attr.aria-hidden]="activeIndex !== index"
           >
-            <div class="project-preview" [attr.data-kind]="project.preview.kind">
+            <div
+              class="project-preview"
+              [attr.data-kind]="project.preview.kind"
+              [style.border-right]="expandedIndex === index ? '0' : null"
+            >
               <div class="preview-bar">
                 <span></span>
                 <span></span>
@@ -40,12 +45,25 @@
               </div>
 
               <div class="preview-body">
-                <p>{{ project.preview.label }}</p>
-                <span>{{ project.status }}</span>
+                @if (project.preview.kind === 'iframe' && project.preview.url) {
+                  <iframe
+                    [title]="project.preview.label"
+                    [src]="trustedPreviewUrl(project.preview.url)"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    (pointerenter)="expandProject(index)"
+                    (pointerleave)="collapseProject(index)"
+                    style="width: 100%; min-height: 430px; border: 0; background: #fff"
+                    [style.height]="expandedIndex === index ? 'min(78vh, 760px)' : 'min(62vh, 560px)'"
+                  ></iframe>
+                } @else {
+                  <p>{{ project.preview.label }}</p>
+                  <span>{{ project.status }}</span>
+                }
               </div>
             </div>
 
-            <div class="project-content">
+            <div class="project-content" [style.display]="expandedIndex === index ? 'none' : null">
               <div class="card-meta">
                 <span>{{ (index + 1).toString().padStart(3, '0') }}</span>
                 <span>{{ project.status }}</span>
@@ -71,7 +89,7 @@
                 </div>
 
                 <div>
-                  <h4>Decisao tecnica</h4>
+                  <h4>Decisão técnica</h4>
                   <p>{{ project.decision }}</p>
                 </div>
               </div>

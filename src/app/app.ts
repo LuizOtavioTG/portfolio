@@ -23,17 +23,19 @@ export class App {
   protected readonly featuredProjects: FeaturedProject[] = [
     {
       name: 'Pomodoro Timer',
-      status: 'Aguardando deploy',
+      status: 'Deploy publicado',
       summary:
-        'Sistema de produtividade baseado na técnica Pomodoro, com frontend Angular e backend Java/Spring Boot.',
+        'Sistema de produtividade baseado na técnica Pomodoro, publicado para uso direto no portfólio.',
       technologies: ['Angular', 'Java', 'Spring Boot'],
-      highlights: ['Ciclos de foco', 'Pausas programadas', 'Histórico de sessões', 'Gerenciamento de dados'],
+      highlights: ['Ciclos de foco', 'Pausas programadas', 'Uso embutido no portfólio', 'Deploy na Vercel'],
       decision:
-        'Separar a experiência de controle do timer no frontend e manter o backend preparado para persistência e histórico.',
+        'Embutir a aplicação via iframe para permitir testar o timer sem sair do portfólio, mantendo também o link externo.',
       preview: {
-        kind: 'placeholder',
-        label: 'Preview do Pomodoro será ativado após o deploy.',
+        kind: 'iframe',
+        label: 'Pomodoro Timer',
+        url: 'https://pomodoro-timer-theta-pearl.vercel.app/',
       },
+      liveUrl: 'https://pomodoro-timer-theta-pearl.vercel.app/',
     },
     {
       name: 'Stock Manager',

@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 export interface ProjectPreview {
   kind: 'placeholder' | 'iframe' | 'image' | 'video';
@@ -27,6 +28,10 @@ export class FeaturedProjects {
   readonly projects = input.required<readonly FeaturedProject[]>();
 
   protected activeIndex = 0;
+  protected expandedIndex: number | null = null;
+  private readonly trustedUrls = new Map<string, SafeResourceUrl>();
+
+  constructor(private readonly sanitizer: DomSanitizer) {}
 
   protected previousProject(): void {
     const total = this.projects().length;
@@ -50,5 +55,28 @@ export class FeaturedProjects {
 
   protected selectProject(index: number): void {
     this.activeIndex = index;
+  }
+
+  protected expandProject(index: number): void {
+    this.expandedIndex = index;
+  }
+
+  protected collapseProject(index: number): void {
+    if (this.expandedIndex === index) {
+      this.expandedIndex = null;
+    }
+  }
+
+  protected trustedPreviewUrl(url: string): SafeResourceUrl {
+    const cachedUrl = this.trustedUrls.get(url);
+
+    if (cachedUrl) {
+      return cachedUrl;
+    }
+
+    const trustedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    this.trustedUrls.set(url, trustedUrl);
+
+    return trustedUrl;
   }
 }
