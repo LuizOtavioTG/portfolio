@@ -23,7 +23,7 @@
     </div>
 
     <div class="carousel-viewport">
-      <div class="carousel-track" [style.transform]="'translateX(-' + activeIndex * 100 + '%)'">
+      <div class="carousel-track">
         @for (project of projects(); track project.name; let index = $index) {
           <article
             class="project-card"

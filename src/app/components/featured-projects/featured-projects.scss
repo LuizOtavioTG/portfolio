@@ -84,11 +84,13 @@ h2 {
 
 .carousel-viewport {
   overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 420ms ease;
+  will-change: transform;
 }
 
 .project-card {
