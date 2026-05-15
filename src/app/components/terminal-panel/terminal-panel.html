@@ -6,11 +6,22 @@
     <strong>session.local</strong>
   </div>
 
-  <div class="terminal-body">
-    <p><span class="prompt">$</span> portfolio init</p>
-    <p class="ok">OK angular app ready</p>
-    <p class="muted">owner: {{ owner() }} / role: {{ role() }}</p>
-    <p><span class="prompt">$</span> current stage</p>
-    <p class="ok">01 apresentacao curta</p>
+  <div class="terminal-body" aria-live="polite">
+    <p>
+      <span class="typed-text command-line" data-terminal-text="portfolio init"></span>
+    </p>
+    <p class="ok">
+      <span class="typed-text" data-terminal-text="OK angular app ready"></span>
+    </p>
+    <p class="muted">
+      <span class="typed-text" [attr.data-terminal-text]="'owner: ' + owner() + ' / role: ' + role()"></span>
+    </p>
+    <p>
+      <span class="typed-text command-line" data-terminal-text="current stage"></span>
+    </p>
+    <p class="ok">
+      <span class="typed-text" data-terminal-text="01 apresentacao curta"></span>
+      <span class="terminal-cursor" aria-hidden="true"></span>
+    </p>
   </div>
 </aside>

@@ -39,6 +39,7 @@
 }
 
 .terminal-body p {
+  min-height: 1.8em;
   margin-top: 0;
   margin-bottom: 10px;
 }
@@ -50,6 +51,36 @@
 
 .muted {
   color: var(--muted);
+}
+
+.typed-text {
+  white-space: pre-wrap;
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.1em;
+  margin-left: 7px;
+  background: var(--green);
+  opacity: 0;
+  transform: translateY(2px);
+}
+
+.terminal-cursor.is-visible {
+  opacity: 1;
+  animation: cursor-blink 1s steps(1, end) infinite;
+}
+
+.terminal-cursor.is-typing {
+  animation: none;
+  visibility: visible;
+}
+
+@keyframes cursor-blink {
+  50% {
+    visibility: hidden;
+  }
 }
 
 @media (max-width: 520px) {
