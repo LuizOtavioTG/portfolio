@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { ScrambleText } from '../../directives/scramble-text';
 
 export interface AboutDetail {
   title: string;
@@ -14,6 +15,7 @@ export interface AboutSectionContent {
 
 @Component({
   selector: 'app-about-section',
+  imports: [ScrambleText],
   templateUrl: './about-section.html',
   styleUrl: './about-section.scss',
 })

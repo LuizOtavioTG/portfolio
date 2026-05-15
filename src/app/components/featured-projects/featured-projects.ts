@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, input } from '
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { gsap } from 'gsap';
 import { Observer } from 'gsap/Observer';
+import { ScrambleText } from '../../directives/scramble-text';
 
 export interface ProjectPreview {
   kind: 'placeholder' | 'iframe' | 'image' | 'video';
@@ -23,6 +24,7 @@ export interface FeaturedProject {
 
 @Component({
   selector: 'app-featured-projects',
+  imports: [ScrambleText],
   templateUrl: './featured-projects.html',
   styleUrl: './featured-projects.scss',
 })

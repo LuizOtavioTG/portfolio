@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { ScrambleText } from '../../directives/scramble-text';
 
 export interface ContactInfo {
   email: string;
@@ -9,6 +10,7 @@ export interface ContactInfo {
 
 @Component({
   selector: 'app-contact-section',
+  imports: [ScrambleText],
   templateUrl: './contact-section.html',
   styleUrl: './contact-section.scss',
 })
