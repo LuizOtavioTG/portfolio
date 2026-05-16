@@ -1,5 +1,6 @@
 import { Component, input } from '@angular/core';
 import { ScrambleText } from '../../directives/scramble-text';
+import { ScrollReveal } from '../../directives/scroll-reveal';
 
 export interface ContactInfo {
   email: string;
@@ -10,7 +11,7 @@ export interface ContactInfo {
 
 @Component({
   selector: 'app-contact-section',
-  imports: [ScrambleText],
+  imports: [ScrambleText, ScrollReveal],
   templateUrl: './contact-section.html',
   styleUrl: './contact-section.scss',
 })

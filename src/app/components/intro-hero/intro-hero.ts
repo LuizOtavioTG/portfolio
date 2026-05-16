@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
+import { ScrollReveal } from '../../directives/scroll-reveal';
+import { ScrambleText } from '../../directives/scramble-text';
 import { TerminalPanel } from '../terminal-panel/terminal-panel';
-import { ScrambleText } from "../../directives/scramble-text";
 
 export interface PortfolioProfile {
   name: string;
@@ -10,7 +11,7 @@ export interface PortfolioProfile {
 
 @Component({
   selector: 'app-intro-hero',
-  imports: [TerminalPanel, ScrambleText],
+  imports: [TerminalPanel, ScrambleText, ScrollReveal],
   templateUrl: './intro-hero.html',
   styleUrl: './intro-hero.scss',
 })

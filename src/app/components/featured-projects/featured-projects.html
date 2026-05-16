@@ -1,5 +1,10 @@
 <section id="projetos" class="projects-section" aria-labelledby="projects-title">
-  <div class="section-heading">
+  <div
+    class="section-heading"
+    appScrollReveal=".eyebrow, h2, .section-copy"
+    [appScrollRevealY]="20"
+    [appScrollRevealStagger]="0.06"
+  >
     <p class="eyebrow" appScrambleText>Projetos em destaque / Etapa 02</p>
     <h2 id="projects-title">Experiências publicadas e prontas para teste.</h2>
     <p class="section-copy">
@@ -8,7 +13,15 @@
     </p>
   </div>
 
-  <div class="carousel-shell" aria-roledescription="carousel" aria-label="Projetos em destaque">
+  <div
+    class="carousel-shell"
+    aria-roledescription="carousel"
+    aria-label="Projetos em destaque"
+    appScrollReveal
+    [appScrollRevealY]="30"
+    [appScrollRevealDuration]="0.64"
+    appScrollRevealStart="top 76%"
+  >
     <div class="carousel-controls">
       <p>{{ (activeIndex + 1).toString().padStart(2, '0') }} / {{ projects().length.toString().padStart(2, '0') }}</p>
 

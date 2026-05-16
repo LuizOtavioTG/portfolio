@@ -1,5 +1,10 @@
 <section id="contato" class="contact-section" aria-labelledby="contact-title">
-  <div class="contact-main">
+  <div
+    class="contact-main"
+    appScrollReveal=".eyebrow, h2, p, .contact-actions a"
+    [appScrollRevealY]="22"
+    [appScrollRevealStagger]="0.055"
+  >
     <p class="eyebrow" appScrambleText>Contato / Etapa 05</p>
     <h2 id="contact-title">Vamos conversar sobre a próxima aplicação.</h2>
     <p>
@@ -17,7 +22,15 @@
     </div>
   </div>
 
-  <aside class="contact-panel" aria-label="Canais de contato">
+  <aside
+    class="contact-panel"
+    aria-label="Canais de contato"
+    appScrollReveal=".panel-bar, .contact-grid a"
+    [appScrollRevealX]="28"
+    [appScrollRevealY]="0"
+    [appScrollRevealDuration]="0.54"
+    [appScrollRevealStagger]="0.065"
+  >
     <div class="panel-bar">
       <span></span>
       <span></span>

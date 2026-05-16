@@ -1,5 +1,10 @@
 <section id="stack" class="stack-section" aria-labelledby="stack-title">
-  <div class="section-heading">
+  <div
+    class="section-heading"
+    appScrollReveal=".eyebrow, h2, .section-copy"
+    [appScrollRevealY]="20"
+    [appScrollRevealStagger]="0.06"
+  >
     <p class="eyebrow" appScrambleText>Stack e habilidades / Etapa 03</p>
     <h2 id="stack-title">Tecnologias principais</h2>
     <p class="section-copy">
@@ -8,7 +13,14 @@
     </p>
   </div>
 
-  <div class="stack-grid">
+  <div
+    class="stack-grid"
+    appScrollReveal=".stack-card"
+    [appScrollRevealY]="30"
+    [appScrollRevealDuration]="0.62"
+    [appScrollRevealStagger]="0.08"
+    appScrollRevealStart="top 76%"
+  >
     @for (category of categories(); track category.name; let index = $index) {
       <article class="stack-card">
         <div class="card-meta">

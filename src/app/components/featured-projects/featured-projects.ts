@@ -3,6 +3,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { gsap } from 'gsap';
 import { Observer } from 'gsap/Observer';
 import { ScrambleText } from '../../directives/scramble-text';
+import { ScrollReveal } from '../../directives/scroll-reveal';
 
 export interface ProjectPreview {
   kind: 'placeholder' | 'iframe' | 'image' | 'video';
@@ -24,7 +25,7 @@ export interface FeaturedProject {
 
 @Component({
   selector: 'app-featured-projects',
-  imports: [ScrambleText],
+  imports: [ScrambleText, ScrollReveal],
   templateUrl: './featured-projects.html',
   styleUrl: './featured-projects.scss',
 })

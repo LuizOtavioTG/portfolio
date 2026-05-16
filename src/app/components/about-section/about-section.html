@@ -1,11 +1,22 @@
 <section id="sobre" class="about-section" aria-labelledby="about-title">
-  <div class="section-heading">
+  <div
+    class="section-heading"
+    appScrollReveal=".eyebrow, h2"
+    [appScrollRevealY]="20"
+    [appScrollRevealStagger]="0.06"
+  >
     <p class="eyebrow" appScrambleText>Sobre voce / Etapa 04</p>
     <h2 id="about-title">Sobre mim</h2>
   </div>
 
   <div class="about-grid">
-    <article class="about-main">
+    <article
+      class="about-main"
+      appScrollReveal=".card-meta, p"
+      [appScrollRevealY]="24"
+      [appScrollRevealDuration]="0.6"
+      [appScrollRevealStagger]="0.055"
+    >
       <div class="card-meta">
         <span>Perfil</span>
         <span>Full-stack</span>
@@ -16,7 +27,14 @@
       <p class="difference">{{ content().difference }}</p>
     </article>
 
-    <div class="about-details">
+    <div
+      class="about-details"
+      appScrollReveal="article"
+      [appScrollRevealX]="26"
+      [appScrollRevealY]="0"
+      [appScrollRevealDuration]="0.58"
+      [appScrollRevealStagger]="0.075"
+    >
       @for (detail of content().details; track detail.title; let index = $index) {
         <article>
           <span>{{ (index + 1).toString().padStart(2, '0') }}</span>
