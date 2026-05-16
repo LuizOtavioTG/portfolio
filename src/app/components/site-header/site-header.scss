@@ -5,7 +5,18 @@
   display: block;
   width: var(--page-width);
   margin: 0 auto;
+  border-bottom: 1px solid transparent;
   backdrop-filter: blur(18px);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+:host.is-scrolled {
+  border-color: var(--line);
+  background: rgba(5, 7, 5, 0.78);
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.28);
 }
 
 .site-header {
@@ -14,6 +25,11 @@
   justify-content: space-between;
   gap: 24px;
   padding: 18px 0;
+  transition: padding 180ms ease;
+}
+
+:host.is-scrolled .site-header {
+  padding: 10px 0;
 }
 
 .brand,
@@ -28,6 +44,11 @@
   color: var(--muted);
   font-size: 13px;
   text-decoration: none;
+  transition: color 180ms ease;
+}
+
+:host.is-scrolled .brand {
+  color: var(--text);
 }
 
 .brand-mark {
@@ -39,6 +60,14 @@
   background: rgba(184, 255, 115, 0.08);
   color: var(--green);
   font-weight: 800;
+  transition:
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+:host.is-scrolled .brand-mark {
+  background: rgba(184, 255, 115, 0.14);
+  box-shadow: 0 0 22px rgba(184, 255, 115, 0.12);
 }
 
 .nav-links {
@@ -47,6 +76,14 @@
   padding: 6px;
   border: 1px solid var(--line);
   background: rgba(5, 7, 5, 0.72);
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+:host.is-scrolled .nav-links {
+  border-color: var(--line-strong);
+  background: rgba(5, 7, 5, 0.9);
 }
 
 .nav-links a {
