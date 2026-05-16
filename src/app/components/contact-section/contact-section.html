@@ -13,10 +13,10 @@
     </p>
 
     <div class="contact-actions">
-      <a class="primary-contact" [href]="'mailto:' + contact().email">
+      <a class="primary-contact" [href]="'mailto:' + contact().email" appHoverLift [appHoverLiftY]="-3">
         Enviar email
       </a>
-      <a class="secondary-contact" [href]="contact().github" target="_blank" rel="noopener">
+      <a class="secondary-contact" [href]="contact().github" target="_blank" rel="noopener" appHoverLift [appHoverLiftY]="-3">
         Ver GitHub
       </a>
     </div>
@@ -39,17 +39,17 @@
     </div>
 
     <div class="contact-grid">
-      <a [href]="'mailto:' + contact().email">
+      <a [href]="'mailto:' + contact().email" appHoverLift>
         <span>Email</span>
         <strong>{{ contact().email }}</strong>
       </a>
 
-      <a [href]="contact().linkedin" target="_blank" rel="noopener">
+      <a [href]="contact().linkedin" target="_blank" rel="noopener" appHoverLift>
         <span>LinkedIn</span>
         <strong>luiz-otavio-torrecillas-gil</strong>
       </a>
 
-      <a [href]="contact().github" target="_blank" rel="noopener">
+      <a [href]="contact().github" target="_blank" rel="noopener" appHoverLift>
         <span>GitHub</span>
         <strong>LuizOtavioTG</strong>
       </a>

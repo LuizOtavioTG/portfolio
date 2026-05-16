@@ -22,7 +22,7 @@
     appScrollRevealStart="top 76%"
   >
     @for (category of categories(); track category.name; let index = $index) {
-      <article class="stack-card">
+      <article class="stack-card" appHoverLift>
         <div class="card-meta">
           <span>{{ (index + 1).toString().padStart(2, '0') }}</span>
           <span>{{ category.name }}</span>

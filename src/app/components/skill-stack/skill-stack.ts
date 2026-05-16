@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { HoverLift } from '../../directives/hover-lift';
 import { ScrambleText } from '../../directives/scramble-text';
 import { ScrollReveal } from '../../directives/scroll-reveal';
 
@@ -10,7 +11,7 @@ export interface SkillCategory {
 
 @Component({
   selector: 'app-skill-stack',
-  imports: [ScrambleText, ScrollReveal],
+  imports: [ScrambleText, ScrollReveal, HoverLift],
   templateUrl: './skill-stack.html',
   styleUrl: './skill-stack.scss',
 })

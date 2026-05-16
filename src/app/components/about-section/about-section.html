@@ -36,7 +36,7 @@
       [appScrollRevealStagger]="0.075"
     >
       @for (detail of content().details; track detail.title; let index = $index) {
-        <article>
+        <article appHoverLift>
           <span>{{ (index + 1).toString().padStart(2, '0') }}</span>
           <h3>{{ detail.title }}</h3>
           <p>{{ detail.text }}</p>

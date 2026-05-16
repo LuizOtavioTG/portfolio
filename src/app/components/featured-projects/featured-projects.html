@@ -26,10 +26,24 @@
       <p>{{ (activeIndex + 1).toString().padStart(2, '0') }} / {{ projects().length.toString().padStart(2, '0') }}</p>
 
       <div>
-        <button type="button" class="control-button" aria-label="Projeto anterior" (click)="previousProject()">
+        <button
+          type="button"
+          class="control-button"
+          aria-label="Projeto anterior"
+          appHoverLift
+          [appHoverLiftY]="-2"
+          (click)="previousProject()"
+        >
           &larr;
         </button>
-        <button type="button" class="control-button" aria-label="Próximo projeto" (click)="nextProject()">
+        <button
+          type="button"
+          class="control-button"
+          aria-label="Próximo projeto"
+          appHoverLift
+          [appHoverLiftY]="-2"
+          (click)="nextProject()"
+        >
           &rarr;
         </button>
       </div>
@@ -109,7 +123,14 @@
 
               <div class="project-actions">
                 @if (project.liveUrl) {
-                  <a class="button button-primary" [href]="project.liveUrl" target="_blank" rel="noopener">
+                  <a
+                    class="button button-primary"
+                    [href]="project.liveUrl"
+                    target="_blank"
+                    rel="noopener"
+                    appHoverLift
+                    [appHoverLiftY]="-3"
+                  >
                     Abrir projeto
                   </a>
                 } @else {
@@ -117,7 +138,14 @@
                 }
 
                 @if (project.githubUrl) {
-                  <a class="button button-secondary" [href]="project.githubUrl" target="_blank" rel="noopener">
+                  <a
+                    class="button button-secondary"
+                    [href]="project.githubUrl"
+                    target="_blank"
+                    rel="noopener"
+                    appHoverLift
+                    [appHoverLiftY]="-3"
+                  >
                     GitHub
                   </a>
                 } @else {
@@ -138,6 +166,8 @@
           [attr.aria-label]="'Mostrar projeto ' + project.name"
           [attr.aria-current]="activeIndex === index ? 'true' : null"
           (click)="selectProject(index)"
+          appHoverLift
+          [appHoverLiftY]="-2"
         >
           <span>{{ (index + 1).toString().padStart(2, '0') }}</span>
         </button>

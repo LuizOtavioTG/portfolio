@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, input } from '
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { gsap } from 'gsap';
 import { Observer } from 'gsap/Observer';
+import { HoverLift } from '../../directives/hover-lift';
 import { ScrambleText } from '../../directives/scramble-text';
 import { ScrollReveal } from '../../directives/scroll-reveal';
 
@@ -25,7 +26,7 @@ export interface FeaturedProject {
 
 @Component({
   selector: 'app-featured-projects',
-  imports: [ScrambleText, ScrollReveal],
+  imports: [ScrambleText, ScrollReveal, HoverLift],
   templateUrl: './featured-projects.html',
   styleUrl: './featured-projects.scss',
 })
