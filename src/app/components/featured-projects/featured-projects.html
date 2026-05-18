@@ -48,8 +48,25 @@
       </div>
     </div>
 
-    <div class="project-showcase">
-      <nav class="project-rail" aria-label="Selecionar projeto">
+    <div class="project-showcase" [class.is-rail-open]="projectRailOpen">
+      <button
+        type="button"
+        class="rail-toggle"
+        [attr.aria-expanded]="projectRailOpen"
+        aria-label="Abrir lista de projetos"
+        (click)="toggleProjectRail()"
+        appHoverLift
+        [appHoverLiftY]="-2"
+      >
+        {{ projectRailOpen ? 'Fechar' : 'Projetos' }}
+      </button>
+
+      <nav
+        class="project-rail"
+        aria-label="Selecionar projeto"
+        [attr.aria-hidden]="projectRailOpen ? null : 'true'"
+        [attr.inert]="projectRailOpen ? null : ''"
+      >
         @for (project of projects(); track project.name; let index = $index) {
           <button
             type="button"
@@ -196,6 +213,8 @@
             </article>
           }
         </div>
+
+        <div class="transition-glitch" aria-hidden="true"></div>
       </div>
     </div>
   </div>

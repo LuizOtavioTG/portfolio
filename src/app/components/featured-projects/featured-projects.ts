@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, input } from '
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { gsap } from 'gsap';
 import { Observer } from 'gsap/Observer';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { HoverLift } from '../../directives/hover-lift';
 import { ScrambleText } from '../../directives/scramble-text';
 import { ScrollReveal } from '../../directives/scroll-reveal';
@@ -35,17 +36,22 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
 
   protected activeIndex = 0;
   protected infoOpenIndex: number | null = null;
+  protected projectRailOpen = false;
   private readonly trustedUrls = new Map<string, SafeResourceUrl>();
   private readonly prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   private swipeObserver?: ReturnType<typeof Observer.create>;
+  private scrollTrigger?: ScrollTrigger;
+  private scrollTween?: gsap.core.Tween;
+  private glitchTimeline?: gsap.core.Timeline;
   private trackElement?: HTMLElement;
+  private lastScrollIndex = 0;
 
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly ngZone: NgZone,
     private readonly sanitizer: DomSanitizer,
   ) {
-    gsap.registerPlugin(Observer);
+    gsap.registerPlugin(Observer, ScrollTrigger);
   }
 
   ngAfterViewInit(): void {
@@ -58,10 +64,14 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     gsap.set(this.trackElement, { xPercent: 0 });
     this.animateActiveSlideContent();
     this.setupSwipeObserver();
+    this.setupStickyScroll();
   }
 
   ngOnDestroy(): void {
     this.swipeObserver?.kill();
+    this.scrollTrigger?.kill();
+    this.scrollTween?.kill();
+    this.glitchTimeline?.kill();
   }
 
   protected previousProject(): void {
@@ -86,6 +96,10 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
 
   protected selectProject(index: number): void {
     this.goToProject(index);
+  }
+
+  protected toggleProjectRail(): void {
+    this.projectRailOpen = !this.projectRailOpen;
   }
 
   protected toggleProjectInfo(index: number): void {
@@ -132,8 +146,19 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     }
 
     const targetIndex = (index + total) % total;
-    this.activeIndex = targetIndex;
-    this.infoOpenIndex = null;
+    this.setActiveProject(targetIndex);
+
+    if (this.scrollTrigger && !this.prefersReducedMotion.matches) {
+      const start = this.scrollTrigger.start;
+      const end = this.scrollTrigger.end;
+      const progress = total === 1 ? 0 : targetIndex / (total - 1);
+
+      window.scrollTo({
+        top: start + (end - start) * progress,
+        behavior: 'smooth',
+      });
+      return;
+    }
 
     if (this.prefersReducedMotion.matches) {
       gsap.set(this.trackElement, { xPercent: -targetIndex * 100 });
@@ -147,6 +172,92 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
       overwrite: true,
       onComplete: () => this.animateActiveSlideContent(),
     });
+  }
+
+  private setupStickyScroll(): void {
+    const total = this.projects().length;
+    const shellElement = this.elementRef.nativeElement.querySelector<HTMLElement>('.carousel-shell');
+    const trackElement = this.trackElement;
+
+    if (!trackElement || !shellElement || total < 2 || this.prefersReducedMotion.matches || window.innerWidth < 940) {
+      return;
+    }
+
+    this.ngZone.runOutsideAngular(() => {
+      this.scrollTween = gsap.to(trackElement, {
+        xPercent: -(total - 1) * 100,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: shellElement,
+          start: 'top top+=18',
+          end: () => `+=${Math.max(window.innerHeight * 0.85, 720) * (total - 1)}`,
+          pin: true,
+          scrub: 0.55,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const nextIndex = Math.round(self.progress * (total - 1));
+
+            if (nextIndex === this.lastScrollIndex) {
+              return;
+            }
+
+            this.lastScrollIndex = nextIndex;
+            this.ngZone.run(() => {
+              this.setActiveProject(nextIndex);
+              this.triggerTransitionGlitch();
+              this.animateActiveSlideContent();
+            });
+          },
+        },
+      });
+
+      this.scrollTrigger = this.scrollTween.scrollTrigger;
+    });
+  }
+
+  private setActiveProject(index: number): void {
+    this.activeIndex = index;
+    this.infoOpenIndex = null;
+    this.projectRailOpen = false;
+  }
+
+  private triggerTransitionGlitch(): void {
+    const glitchElement = this.elementRef.nativeElement.querySelector<HTMLElement>('.transition-glitch');
+
+    if (!glitchElement || this.prefersReducedMotion.matches) {
+      return;
+    }
+
+    this.glitchTimeline?.kill();
+    this.glitchTimeline = gsap
+      .timeline()
+      .set(glitchElement, { autoAlpha: 1, x: 0 })
+      .to(glitchElement, {
+        clipPath: 'inset(0 0 58% 0)',
+        x: -12,
+        duration: 0.055,
+        ease: 'steps(1)',
+      })
+      .to(glitchElement, {
+        clipPath: 'inset(36% 0 22% 0)',
+        x: 14,
+        duration: 0.055,
+        ease: 'steps(1)',
+      })
+      .to(glitchElement, {
+        clipPath: 'inset(68% 0 0 0)',
+        x: -7,
+        duration: 0.055,
+        ease: 'steps(1)',
+      })
+      .to(glitchElement, {
+        autoAlpha: 0,
+        x: 0,
+        clipPath: 'inset(0 0 0 0)',
+        duration: 0.12,
+        ease: 'power2.out',
+      });
   }
 
   private animateActiveSlideContent(): void {

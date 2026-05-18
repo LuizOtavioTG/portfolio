@@ -4,6 +4,10 @@
   color-scheme: dark;
   --bg: #050705;
   --text: #edf7ec;
+  --scroll-track: #050705;
+  --scroll-thumb: rgba(184, 255, 115, 0.5);
+  --scroll-thumb-hover: #b8ff73;
+  --scroll-line: rgba(185, 255, 190, 0.18);
   --page-gutter: clamp(22px, 5vw, 120px);
   --page-width: min(1480px, calc(100% - var(--page-gutter) - var(--page-gutter)));
   --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -21,4 +25,36 @@ body {
   color: var(--text);
   font-family: var(--font-sans);
   font-size: 17px;
+}
+
+* {
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  border-left: 1px solid var(--scroll-line);
+  background:
+    linear-gradient(rgba(185, 255, 190, 0.04) 1px, transparent 1px),
+    var(--scroll-track);
+  background-size: 12px 12px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 3px solid var(--scroll-track);
+  background: linear-gradient(180deg, var(--scroll-thumb-hover), var(--scroll-thumb));
+  box-shadow: inset 0 0 0 1px rgba(5, 7, 5, 0.85);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--scroll-track);
 }
