@@ -8,39 +8,18 @@
     <p class="eyebrow" appScrambleText>Cursos realizados / Etapa 04</p>
     <h2 id="courses-title">Formação contínua aplicada ao código.</h2>
     <p class="section-copy">
-      Cursos concluídos na Alura para reforçar prática em front-end, back-end,
-      versionamento, containers e fundamentos de desenvolvimento.
+      Cursos e formações que complementam minha evolução contínua em desenvolvimento web, APIs, versionamento, containers e boas práticas de software.
     </p>
   </div>
 
   <div
     class="courses-shell"
-    appScrollReveal=".summary-panel, .track-card, .course-list"
+    appScrollReveal=".track-card, .course-list"
     [appScrollRevealY]="28"
     [appScrollRevealDuration]="0.62"
     [appScrollRevealStagger]="0.07"
     appScrollRevealStart="top 76%"
   >
-    <div class="summary-panel">
-      <div class="summary-stat">
-        <span>Total</span>
-        <strong>{{ totalCourses }}</strong>
-        <small>cursos concluídos</small>
-      </div>
-
-      <div class="summary-stat">
-        <span>Plataforma</span>
-        <strong>{{ platform }}</strong>
-        <small>certificados disponíveis</small>
-      </div>
-
-      <div class="summary-stat">
-        <span>Atualizado</span>
-        <strong>{{ updatedAt }}</strong>
-        <small>base local do portfólio</small>
-      </div>
-    </div>
-
     <div class="track-grid" aria-label="Resumo por trilha">
       @for (track of trackHighlights(); track track.name) {
         <article class="track-card" appHoverLift>

@@ -11,7 +11,6 @@
 }
 
 .eyebrow,
-.summary-stat,
 .track-card span,
 .filter-bar,
 .course-index,
@@ -48,44 +47,6 @@ h2 {
 .courses-shell {
   border: 1px solid var(--line);
   background: rgba(5, 7, 5, 0.42);
-}
-
-.summary-panel {
-  display: grid;
-  grid-template-columns: 0.8fr 1fr 1fr;
-  border-bottom: 1px solid var(--line);
-}
-
-.summary-stat {
-  min-height: 170px;
-  padding: 22px;
-  background: rgba(9, 13, 10, 0.76);
-}
-
-.summary-stat + .summary-stat {
-  border-left: 1px solid var(--line);
-}
-
-.summary-stat span,
-.summary-stat small {
-  display: block;
-  color: var(--faint);
-  font-size: 12px;
-  text-transform: uppercase;
-}
-
-.summary-stat strong {
-  display: block;
-  margin: 30px 0 8px;
-  color: var(--text);
-  font-size: clamp(32px, 4vw, 54px);
-  line-height: 1;
-  font-weight: 900;
-}
-
-.summary-stat:first-child strong {
-  color: var(--green);
-  font-size: clamp(58px, 8vw, 116px);
 }
 
 .track-grid {
@@ -240,23 +201,19 @@ h2 {
 }
 
 @media (max-width: 780px) {
-  .summary-panel,
   .track-grid {
     grid-template-columns: 1fr;
   }
 
-  .summary-stat + .summary-stat,
   .track-card + .track-card {
     border-top: 1px solid var(--line);
     border-left: 0;
   }
 
-  .summary-stat,
   .track-card {
     min-height: 0;
   }
 
-  .summary-stat strong,
   .track-card span {
     margin-top: 24px;
     margin-bottom: 8px;
@@ -277,7 +234,6 @@ h2 {
     padding-bottom: 94px;
   }
 
-  .summary-stat,
   .track-card {
     padding: 18px;
   }

@@ -36,7 +36,6 @@ h2 {
 
 .about-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
   border: 1px solid var(--line);
 }
 
@@ -56,7 +55,7 @@ h2 {
 }
 
 .about-main p {
-  max-width: 760px;
+  max-width: 1120px;
   margin: 0 0 22px;
   color: #b8c8b5;
   font-size: clamp(18px, 2vw, 22px);
@@ -69,7 +68,8 @@ h2 {
 
 .about-details {
   display: grid;
-  border-left: 1px solid var(--line);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
 }
 
 .about-details article {
@@ -78,7 +78,11 @@ h2 {
   background: rgba(5, 7, 5, 0.42);
 }
 
-.about-details article + article {
+.about-details article:nth-child(even) {
+  border-left: 1px solid var(--line);
+}
+
+.about-details article:nth-child(n + 3) {
   border-top: 1px solid var(--line);
 }
 
@@ -102,13 +106,16 @@ h3 {
 }
 
 @media (max-width: 920px) {
-  .about-grid {
+  .about-details {
     grid-template-columns: 1fr;
   }
 
-  .about-details {
-    border-top: 1px solid var(--line);
+  .about-details article:nth-child(even) {
     border-left: 0;
+  }
+
+  .about-details article + article {
+    border-top: 1px solid var(--line);
   }
 }
 

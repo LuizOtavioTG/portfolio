@@ -41,9 +41,6 @@ const data = coursesData as AluraCoursesData;
 })
 export class CourseSection {
   protected readonly activeFilter = signal<CourseFilter['label']>(ALL_FILTER);
-  protected readonly platform = data.platform;
-  protected readonly totalCourses = data.totalCourses;
-  protected readonly updatedAt = new Intl.DateTimeFormat('pt-BR').format(new Date(data.updatedAt));
 
   protected readonly courses = data.courses.map((course) => ({
     ...course,
