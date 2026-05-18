@@ -1,0 +1,97 @@
+<section id="cursos" class="courses-section" aria-labelledby="courses-title">
+  <div
+    class="section-heading"
+    appScrollReveal=".eyebrow, h2, .section-copy"
+    [appScrollRevealY]="20"
+    [appScrollRevealStagger]="0.06"
+  >
+    <p class="eyebrow" appScrambleText>Cursos realizados / Etapa 04</p>
+    <h2 id="courses-title">Formação contínua aplicada ao código.</h2>
+    <p class="section-copy">
+      Cursos concluídos na Alura para reforçar prática em front-end, back-end,
+      versionamento, containers e fundamentos de desenvolvimento.
+    </p>
+  </div>
+
+  <div
+    class="courses-shell"
+    appScrollReveal=".summary-panel, .track-card, .course-list"
+    [appScrollRevealY]="28"
+    [appScrollRevealDuration]="0.62"
+    [appScrollRevealStagger]="0.07"
+    appScrollRevealStart="top 76%"
+  >
+    <div class="summary-panel">
+      <div class="summary-stat">
+        <span>Total</span>
+        <strong>{{ totalCourses }}</strong>
+        <small>cursos concluídos</small>
+      </div>
+
+      <div class="summary-stat">
+        <span>Plataforma</span>
+        <strong>{{ platform }}</strong>
+        <small>certificados disponíveis</small>
+      </div>
+
+      <div class="summary-stat">
+        <span>Atualizado</span>
+        <strong>{{ updatedAt }}</strong>
+        <small>base local do portfólio</small>
+      </div>
+    </div>
+
+    <div class="track-grid" aria-label="Resumo por trilha">
+      @for (track of trackHighlights(); track track.name) {
+        <article class="track-card" appHoverLift>
+          <span>{{ track.count.toString().padStart(2, '0') }}</span>
+          <h3>{{ track.name }}</h3>
+          <p>{{ track.description }}</p>
+        </article>
+      }
+    </div>
+
+    <div class="course-list">
+      <div class="filter-bar" aria-label="Filtrar cursos por trilha">
+        @for (filter of filters(); track filter.label) {
+          <button
+            type="button"
+            [class.is-active]="activeFilter() === filter.label"
+            [attr.aria-pressed]="activeFilter() === filter.label"
+            (click)="selectFilter(filter.label)"
+            appHoverLift
+            [appHoverLiftY]="-2"
+          >
+            <span>{{ filter.label }}</span>
+            <small>{{ filter.count }}</small>
+          </button>
+        }
+      </div>
+
+      <div class="course-table" role="list" [attr.aria-label]="'Cursos em ' + activeFilter()">
+        @for (course of filteredCourses(); track course.id; let index = $index) {
+          <article class="course-row" role="listitem">
+            <span class="course-index">{{ (index + 1).toString().padStart(2, '0') }}</span>
+
+            <div class="course-content">
+              <div>
+                <h3>{{ course.name }}</h3>
+                <p>{{ course.track }} · {{ course.progress }}% concluído</p>
+              </div>
+
+              <a
+                [href]="course.certificateUrl"
+                target="_blank"
+                rel="noopener"
+                appHoverLift
+                [appHoverLiftY]="-2"
+              >
+                Certificado
+              </a>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>

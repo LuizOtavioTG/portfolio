@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AboutSection, AboutSectionContent } from './components/about-section/about-section';
 import { ContactInfo, ContactSection } from './components/contact-section/contact-section';
+import { CourseSection } from './components/course-section/course-section';
 import { FeaturedProject, FeaturedProjects } from './components/featured-projects/featured-projects';
 import { IntroHero } from './components/intro-hero/intro-hero';
 import { SiteHeader } from './components/site-header/site-header';
@@ -8,7 +9,7 @@ import { SkillCategory, SkillStack } from './components/skill-stack/skill-stack'
 
 @Component({
   selector: 'app-root',
-  imports: [SiteHeader, IntroHero, FeaturedProjects, SkillStack, AboutSection, ContactSection],
+  imports: [SiteHeader, IntroHero, FeaturedProjects, SkillStack, CourseSection, AboutSection, ContactSection],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -112,7 +113,7 @@ export class App {
       },
       {
         title: 'Cursos',
-        text: 'Seção em aberto. A ideia é encontrar uma forma consistente de trazer ou espelhar os cursos do LinkedIn.',
+        text: 'Mantenho uma base de cursos concluídos para evidenciar estudo contínuo em Angular, Java, APIs, Git, Docker e fundamentos de software.',
       },
     ],
   };
