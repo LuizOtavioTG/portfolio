@@ -4,12 +4,13 @@ import { ContactInfo, ContactSection } from './components/contact-section/contac
 import { CourseSection } from './components/course-section/course-section';
 import { FeaturedProject, FeaturedProjects } from './components/featured-projects/featured-projects';
 import { IntroHero } from './components/intro-hero/intro-hero';
+import { SiteFooter } from './components/site-footer/site-footer';
 import { SiteHeader } from './components/site-header/site-header';
 import { SkillCategory, SkillStack } from './components/skill-stack/skill-stack';
 
 @Component({
   selector: 'app-root',
-  imports: [SiteHeader, IntroHero, FeaturedProjects, SkillStack, CourseSection, AboutSection, ContactSection],
+  imports: [SiteHeader, IntroHero, FeaturedProjects, SkillStack, CourseSection, AboutSection, ContactSection, SiteFooter],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -18,7 +19,7 @@ export class App {
     name: 'Luiz',
     role: 'Desenvolvedor full-stack',
     intro:
-      'Desenvolvedor full-stack focado em criar aplicações web rápidas, acessíveis e bem estruturadas, com atenção à experiência do usuário, performance e qualidade do código.',
+      'Desenvolvedor full-stack com foco em aplicações web, APIs e integrações. Projetos construídos com atenção à performance, acessibilidade, organização de código e valor para o negócio.',
   };
 
   protected readonly featuredProjects: FeaturedProject[] = [
@@ -26,7 +27,7 @@ export class App {
       name: 'Pomodoro Timer',
       status: 'Deploy publicado',
       summary:
-        'Sistema de produtividade baseado na técnica Pomodoro, publicado para uso direto no portfólio.',
+        'Aplicação de produtividade baseada na técnica Pomodoro, com ciclos de foco e pausa para ajudar o usuário a organizar melhor o tempo.',
       technologies: ['Angular', 'Java', 'Spring Boot'],
       highlights: ['Ciclos de foco', 'Pausas programadas', 'Uso embutido no portfólio', 'Deploy na Vercel'],
       decision:
@@ -42,7 +43,7 @@ export class App {
       name: 'Stock Manager',
       status: 'Aguardando deploy',
       summary:
-        'API para gerenciamento de produtos, categorias, estoque e inventário com autenticação JWT e ambiente Docker.',
+        'Sistema de estoque gerenciamento de produtos, categorias, estoque e inventário.',
       technologies: ['Java 17', 'Spring Boot 3.4.5', 'PostgreSQL', 'Flyway', 'JWT', 'Docker'],
       highlights: ['Autenticação JWT', 'Permissões por perfil', 'CRUD de produtos', 'Controle de estoque'],
       decision:
@@ -101,11 +102,11 @@ export class App {
     details: [
       {
         title: 'Busco',
-        text: 'Vagas e projetos full-stack em que eu possa atuar em produtos web, APIs e sistemas com impacto prático para o negócio.',
+        text: 'Busco novos desafios como desenvolvedor full-stack, especialmente em produtos web, integrações, APIs e sistemas internos. Quero atuar em projetos onde tecnologia seja usada para melhorar processos, automatizar tarefas e gerar impacto real para usuários e empresas.',
       },
       {
         title: 'Como trabalho',
-        text: 'Gosto de entender o problema antes da tela ou do código, quebrar entregas em etapas pequenas e manter a solução simples de evoluir.',
+        text: 'Antes de começar pelo código, procuro entender o problema, o usuário e o contexto do negócio. Depois, divido a entrega em etapas menores, priorizo uma solução funcional e mantenho o código organizado para que o projeto possa evoluir com segurança.',
       },
       {
         title: 'Interesses',

@@ -1,0 +1,36 @@
+:host {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: var(--page-width);
+  margin: 0 auto;
+}
+
+.site-footer {
+  padding: 22px 0 30px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--green-strong);
+}
+
+@media (max-width: 520px) {
+  :host {
+    width: calc(100% - 22px);
+  }
+}
