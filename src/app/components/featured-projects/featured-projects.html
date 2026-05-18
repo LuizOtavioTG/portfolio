@@ -82,7 +82,7 @@
           @for (project of projects(); track project.name; let index = $index) {
             <article
               class="project-card"
-              [style.grid-template-columns]="expandedIndex === index ? '1fr' : null"
+              [class.is-info-open]="infoOpenIndex === index"
               aria-roledescription="slide"
               [attr.aria-label]="project.name"
               [attr.aria-hidden]="activeIndex !== index"
@@ -90,7 +90,6 @@
               <div
                 class="project-preview"
                 [attr.data-kind]="project.preview.kind"
-                [style.border-right]="expandedIndex === index ? '0' : null"
               >
                 <div class="preview-bar">
                   <span></span>
@@ -102,14 +101,11 @@
                 <div class="preview-body">
                   @if (project.preview.kind === 'iframe' && project.preview.url) {
                     <iframe
+                      class="preview-frame"
                       [title]="project.preview.label"
                       [src]="trustedPreviewUrl(project.preview.url)"
                       loading="lazy"
                       referrerpolicy="no-referrer-when-downgrade"
-                      (pointerenter)="expandProject(index)"
-                      (pointerleave)="collapseProject(index)"
-                      style="width: 100%; min-height: 430px; border: 0; background: #fff"
-                      [style.height]="expandedIndex === index ? 'min(78vh, 760px)' : 'min(62vh, 560px)'"
                     ></iframe>
                   } @else {
                     <p>{{ project.preview.label }}</p>
@@ -118,7 +114,23 @@
                 </div>
               </div>
 
-              <div class="project-content" [style.display]="expandedIndex === index ? 'none' : null">
+              <button
+                type="button"
+                class="info-toggle"
+                [attr.aria-expanded]="infoOpenIndex === index"
+                [attr.aria-label]="infoOpenIndex === index ? 'Fechar informações de ' + project.name : 'Abrir informações de ' + project.name"
+                (click)="toggleProjectInfo(index)"
+                appHoverLift
+                [appHoverLiftY]="-2"
+              >
+                {{ infoOpenIndex === index ? 'Fechar' : 'Info' }}
+              </button>
+
+              <div
+                class="project-content"
+                [attr.aria-hidden]="infoOpenIndex === index ? null : 'true'"
+                [attr.inert]="infoOpenIndex === index ? null : ''"
+              >
                 <div class="card-meta">
                   <span>{{ (index + 1).toString().padStart(3, '0') }}</span>
                   <span>{{ project.status }}</span>

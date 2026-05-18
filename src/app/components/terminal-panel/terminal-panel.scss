@@ -57,6 +57,12 @@
   white-space: pre-wrap;
 }
 
+.build-output {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 1.62;
+}
+
 .terminal-cursor {
   display: inline-block;
   width: 8px;

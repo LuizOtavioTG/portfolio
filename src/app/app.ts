@@ -27,11 +27,17 @@ export class App {
       name: 'Pomodoro Timer',
       status: 'Deploy publicado',
       summary:
-        'Aplicação de produtividade baseada na técnica Pomodoro, com ciclos de foco e pausa para ajudar o usuário a organizar melhor o tempo.',
-      technologies: ['Angular', 'Java', 'Spring Boot'],
-      highlights: ['Ciclos de foco', 'Pausas programadas', 'Uso embutido no portfólio', 'Deploy na Vercel'],
+        'Aplicação de produtividade para organizar o tempo em ciclos de foco e descanso. O usuário escolhe uma tarefa, inicia uma sessão de concentração e acompanha quantos ciclos concluiu ao longo do dia.',
+      technologies: ['Angular', 'TypeScript', 'HTML', 'SCSS'],
+      highlights: [
+        'Ciclos de foco e pausa',
+        'Tarefas ativas',
+        'Ciclos por tarefa',
+        'Histórico diário',
+        'Tema, notificações e localStorage',
+      ],
       decision:
-        'Embutir a aplicação via iframe para permitir testar o timer sem sair do portfólio, mantendo também o link externo.',
+        'Construí em Angular com serviços para temporizador, tarefas, configurações e histórico. Usei localStorage para persistir dados e testes para validar os principais fluxos.',
       preview: {
         kind: 'iframe',
         label: 'Pomodoro Timer',

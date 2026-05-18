@@ -34,7 +34,7 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
   readonly projects = input.required<readonly FeaturedProject[]>();
 
   protected activeIndex = 0;
-  protected expandedIndex: number | null = null;
+  protected infoOpenIndex: number | null = null;
   private readonly trustedUrls = new Map<string, SafeResourceUrl>();
   private readonly prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   private swipeObserver?: ReturnType<typeof Observer.create>;
@@ -88,14 +88,8 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     this.goToProject(index);
   }
 
-  protected expandProject(index: number): void {
-    this.expandedIndex = index;
-  }
-
-  protected collapseProject(index: number): void {
-    if (this.expandedIndex === index) {
-      this.expandedIndex = null;
-    }
+  protected toggleProjectInfo(index: number): void {
+    this.infoOpenIndex = this.infoOpenIndex === index ? null : index;
   }
 
   protected trustedPreviewUrl(url: string): SafeResourceUrl {
@@ -139,6 +133,7 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
 
     const targetIndex = (index + total) % total;
     this.activeIndex = targetIndex;
+    this.infoOpenIndex = null;
 
     if (this.prefersReducedMotion.matches) {
       gsap.set(this.trackElement, { xPercent: -targetIndex * 100 });
@@ -161,7 +156,7 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
 
     const activeCard = this.elementRef.nativeElement.querySelectorAll<HTMLElement>('.project-card')[this.activeIndex];
     const animatedElements = activeCard?.querySelectorAll<HTMLElement>(
-      '.preview-bar, .project-content .card-meta, .project-content h3, .summary, .tech-list li, .details-grid > div, .project-actions .button',
+      '.preview-bar, .info-toggle, .project-content .card-meta, .project-content h3, .summary, .tech-list li, .details-grid > div, .project-actions .button',
     );
 
     if (!animatedElements?.length) {

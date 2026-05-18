@@ -1,26 +1,26 @@
-<aside class="terminal-panel" aria-label="Resumo tecnico do portfolio">
+<aside class="terminal-panel" aria-label="Resumo técnico do portfólio Angular">
   <div class="panel-bar">
     <span></span>
     <span></span>
     <span></span>
-    <strong>session.local</strong>
+    <strong>angular.workspace</strong>
   </div>
 
   <div class="terminal-body" aria-live="polite">
     <p>
-      <span class="typed-text command-line" data-terminal-text="portfolio init"></span>
+      <span class="typed-text command-line" data-terminal-text="ng serve portfolio"></span>
     </p>
     <p class="ok">
-      <span class="typed-text" data-terminal-text="OK angular app ready"></span>
+      <span class="typed-text" data-terminal-text="OK Angular app running with standalone components"></span>
     </p>
     <p class="muted">
       <span class="typed-text" [attr.data-terminal-text]="'owner: ' + owner() + ' / role: ' + role()"></span>
     </p>
     <p>
-      <span class="typed-text command-line" data-terminal-text="current stage"></span>
+      <span class="typed-text command-line" data-terminal-text="ng build --configuration production"></span>
     </p>
     <p class="ok">
-      <span class="typed-text" data-terminal-text="01 apresentacao curta"></span>
+      <span class="typed-text build-output" [attr.data-terminal-text]="buildOutput" data-terminal-speed="fast"></span>
       <span class="terminal-cursor" aria-hidden="true"></span>
     </p>
   </div>

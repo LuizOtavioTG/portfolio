@@ -10,6 +10,14 @@ import { TextPlugin } from 'gsap/TextPlugin';
 export class TerminalPanel implements AfterViewInit, OnDestroy {
   readonly owner = input.required<string>();
   readonly role = input.required<string>();
+  readonly buildOutput = `Initial chunk files | Names         |  Raw size
+main.js             | main          | 186.99 kB |
+styles.css          | styles        |   1.60 kB |
+polyfills.js        | polyfills     |  95 bytes |
+
+                    | Initial total | 188.68 kB
+
+Application bundle generation complete. [2.109 seconds] - ${new Date().toISOString()}`;
 
   private readonly prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   private terminalTimeline?: gsap.core.Timeline;
@@ -74,26 +82,27 @@ export class TerminalPanel implements AfterViewInit, OnDestroy {
   private typeTerminalText(timeline: gsap.core.Timeline, line: HTMLElement, text: string): void {
     Array.from(text).forEach((character, index) => {
       timeline
-        .to({}, { duration: this.getTypingDelay(character, index) })
+        .to({}, { duration: this.getTypingDelay(character, index, line) })
         .call(() => {
           line.textContent = text.slice(0, index + 1);
         });
     });
   }
 
-  private getTypingDelay(character: string, index: number): number {
+  private getTypingDelay(character: string, index: number, line: HTMLElement): number {
     const rhythm = [0.048, 0.072, 0.055, 0.095, 0.063, 0.082];
     const baseDelay = rhythm[index % rhythm.length];
+    const speedMultiplier = line.dataset['terminalSpeed'] === 'fast' ? 0.08 : 1;
 
     if (character === ' ') {
-      return baseDelay + 0.055;
+      return (baseDelay + 0.055) * speedMultiplier;
     }
 
     if (['/', ':', '-'].includes(character)) {
-      return baseDelay + 0.035;
+      return (baseDelay + 0.035) * speedMultiplier;
     }
 
-    return baseDelay;
+    return baseDelay * speedMultiplier;
   }
 
   private getTerminalText(line: HTMLElement): string {
