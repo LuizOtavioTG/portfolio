@@ -1,0 +1,507 @@
+{
+  "updatedAt": "2026-05-18T00:31:40.182Z",
+  "platform": "Alura",
+  "totalCourses": 50,
+  "courses": [
+    {
+      "id": 3491,
+      "name": "Acessibilidade no Angular: aprimorando formulários, modais e rotas",
+      "slug": "acessibilidade-angular-formularios-modais-rotas",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-acessibilidade-angular-formularios-modais-rotas",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/acessibilidade-angular-formularios-modais-rotas/certificate"
+    },
+    {
+      "id": 2438,
+      "name": "Angular 14: aplique os conceitos e desenvolva seu primeiro CRUD",
+      "slug": "angular-explorando-framework",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-explorando-framework",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-explorando-framework/certificate"
+    },
+    {
+      "id": 2678,
+      "name": "Angular 14: evoluindo a aplicação",
+      "slug": "angular-evoluindo-aplicacao",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-evoluindo-aplicacao",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-evoluindo-aplicacao/certificate"
+    },
+    {
+      "id": 4456,
+      "name": "Angular 19: aplicando interação entre componentes com inputs e outputs",
+      "slug": "angular-19-aplicando-interacao-componentes-inputs-outputs",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-19-aplicando-interacao-componentes-inputs-outputs",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-19-aplicando-interacao-componentes-inputs-outputs/certificate"
+    },
+    {
+      "id": 4458,
+      "name": "Angular 19: aprenda a criar e validar reactive forms",
+      "slug": "angular-19-aprenda-criar-validar-reactive-forms",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-19-aprenda-criar-validar-reactive-forms",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-19-aprenda-criar-validar-reactive-forms/certificate"
+    },
+    {
+      "id": 4460,
+      "name": "Angular 19: autenticação, proteção e manipulação de rotas",
+      "slug": "angular-autenticacao-protecao-manipulacao-rotas",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-autenticacao-protecao-manipulacao-rotas",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-autenticacao-protecao-manipulacao-rotas/certificate"
+    },
+    {
+      "id": 4490,
+      "name": "Angular 19: construindo um projeto com Angular Material",
+      "slug": "angular-19-construindo-projeto-angular-material",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-19-construindo-projeto-angular-material",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-19-construindo-projeto-angular-material/certificate"
+    },
+    {
+      "id": 4459,
+      "name": "Angular 19: criando serviços e consumindo API com HttpClient",
+      "slug": "angular-19-criando-servicos-consumindo-api-httpclient",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-19-criando-servicos-consumindo-api-httpclient",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-19-criando-servicos-consumindo-api-httpclient/certificate"
+    },
+    {
+      "id": 4457,
+      "name": "Angular 19: diretivas, projeção de conteúdo e interações com o DOM",
+      "slug": "angular-diretivas-projecao-conteudo-interacoes-dom",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-diretivas-projecao-conteudo-interacoes-dom",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-diretivas-projecao-conteudo-interacoes-dom/certificate"
+    },
+    {
+      "id": 4455,
+      "name": "Angular 19: estruture componentes com signals e controle de fluxo",
+      "slug": "angular-19-estruture-componentes-signals-controle-fluxo",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-19-estruture-componentes-signals-controle-fluxo",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-19-estruture-componentes-signals-controle-fluxo/certificate"
+    },
+    {
+      "id": 4491,
+      "name": "Angular 19: implementando Lazy Loading na sua aplicação",
+      "slug": "angular-19-implementando-lazy-loading-aplicacao",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-19-implementando-lazy-loading-aplicacao",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-19-implementando-lazy-loading-aplicacao/certificate"
+    },
+    {
+      "id": 2986,
+      "name": "Angular: aprimore suas técnicas de animação e crie interfaces ainda mais atraentes",
+      "slug": "angular-tecnicas-animacao-interfaces-atraentes",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-tecnicas-animacao-interfaces-atraentes",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-tecnicas-animacao-interfaces-atraentes/certificate"
+    },
+    {
+      "id": 2807,
+      "name": "Angular: ciclo de vida",
+      "slug": "angular-ciclo-vida",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-ciclo-vida",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-ciclo-vida/certificate"
+    },
+    {
+      "id": 2729,
+      "name": "Angular: formulários orientados a templates",
+      "slug": "angular-formularios-orientados-templates",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-formularios-orientados-templates",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-formularios-orientados-templates/certificate"
+    },
+    {
+      "id": 2806,
+      "name": "Angular: torne sua aplicação interativa e personalizada com animações",
+      "slug": "angular-aplicacao-interativa-personalizada-animacoes",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-angular-aplicacao-interativa-personalizada-animacoes",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/angular-aplicacao-interativa-personalizada-animacoes/certificate"
+    },
+    {
+      "id": 1504,
+      "name": "Aprender a aprender: técnicas para seu autodesenvolvimento",
+      "slug": "aprender-a-aprender-tecnicas-para-seu-autodesenvolvimento",
+      "progress": 98,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-aprender-a-aprender-tecnicas-para-seu-autodesenvolvimento",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/aprender-a-aprender-tecnicas-para-seu-autodesenvolvimento/certificate"
+    },
+    {
+      "id": 3349,
+      "name": "Boas práticas de programação: automatizando testes com Java",
+      "slug": "boas-praticas-programacao-testes-java",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-boas-praticas-programacao-testes-java",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/boas-praticas-programacao-testes-java/certificate"
+    },
+    {
+      "id": 3238,
+      "name": "Boas práticas de programação: melhore o código de uma API Java",
+      "slug": "boas-praticas-programacao-melhore-codigo-api-java",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-boas-praticas-programacao-melhore-codigo-api-java",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/boas-praticas-programacao-melhore-codigo-api-java/certificate"
+    },
+    {
+      "id": 2380,
+      "name": "Docker: criando e gerenciando containers",
+      "slug": "docker-criando-gerenciando-containers",
+      "progress": 98,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-docker-criando-gerenciando-containers",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/docker-criando-gerenciando-containers/certificate"
+    },
+    {
+      "id": 5407,
+      "name": "Flash Skills: ChatGPT",
+      "slug": "flash-skills-chatgpt",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-flash-skills-chatgpt",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/flash-skills-chatgpt/certificate"
+    },
+    {
+      "id": 3386,
+      "name": "Git e GitHub: compartilhando e colaborando em projetos",
+      "slug": "git-github-compartilhando-colaborando-projetos",
+      "progress": 96,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-git-github-compartilhando-colaborando-projetos",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/git-github-compartilhando-colaborando-projetos/certificate"
+    },
+    {
+      "id": 3624,
+      "name": "Git e GitHub: dominando controle de versão de código",
+      "slug": "git-github-dominando-controle-versao-codigo",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-git-github-dominando-controle-versao-codigo",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/git-github-dominando-controle-versao-codigo/certificate"
+    },
+    {
+      "id": 2530,
+      "name": "Git e GitHub: repositório, commit e versões",
+      "slug": "git-github-repositorio-commit-versoes",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-git-github-repositorio-commit-versoes",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/git-github-repositorio-commit-versoes/certificate"
+    },
+    {
+      "id": 2808,
+      "name": "HTML e CSS: ambientes de desenvolvimento, estrutura de arquivos e tags",
+      "slug": "html-css-ambiente-arquivos-tags",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-html-css-ambiente-arquivos-tags",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/html-css-ambiente-arquivos-tags/certificate"
+    },
+    {
+      "id": 2811,
+      "name": "HTML e CSS: cabeçalho, footer e variáveis CSS",
+      "slug": "html-css-cabecalho-footer-variaveis-css",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-html-css-cabecalho-footer-variaveis-css",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/html-css-cabecalho-footer-variaveis-css/certificate"
+    },
+    {
+      "id": 2810,
+      "name": "HTML e CSS: Classes, posicionamento e Flexbox",
+      "slug": "html-css-classes-posicionamento-flexbox",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-html-css-classes-posicionamento-flexbox",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/html-css-classes-posicionamento-flexbox/certificate"
+    },
+    {
+      "id": 2417,
+      "name": "HTML e CSS: praticando HTML/CSS",
+      "slug": "html-css-praticando-html-css",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-html-css-praticando-html-css",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/html-css-praticando-html-css/certificate"
+    },
+    {
+      "id": 2529,
+      "name": "HTML e CSS: responsividade com mobile-first",
+      "slug": "html-css-responsividade-mobile-first",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-html-css-responsividade-mobile-first",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/html-css-responsividade-mobile-first/certificate"
+    },
+    {
+      "id": 2884,
+      "name": "HTML e CSS: trabalhando com responsividade e publicação de projetos",
+      "slug": "html-css-responsividade-publicacao-projetos",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-html-css-responsividade-publicacao-projetos",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/html-css-responsividade-publicacao-projetos/certificate"
+    },
+    {
+      "id": 3026,
+      "name": "HTTP: entendendo a web por baixo dos panos",
+      "slug": "http-entendendo-web-por-baixo-dos-panos",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-http-entendendo-web-por-baixo-dos-panos",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/http-entendendo-web-por-baixo-dos-panos/certificate"
+    },
+    {
+      "id": 3149,
+      "name": "Java e refatoração: melhorando códigos com boas práticas",
+      "slug": "java-refatoracao-melhorando-codigos-boas-praticas",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-java-refatoracao-melhorando-codigos-boas-praticas",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/java-refatoracao-melhorando-codigos-boas-praticas/certificate"
+    },
+    {
+      "id": 3441,
+      "name": "Java exceções: aprenda a criar, lançar e controlar exceções",
+      "slug": "java-excecoes-aprenda-criar-lancar-controlar-excecoes",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-java-excecoes-aprenda-criar-lancar-controlar-excecoes",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/java-excecoes-aprenda-criar-lancar-controlar-excecoes/certificate"
+    },
+    {
+      "id": 3412,
+      "name": "Java Reflection: simplifique a conversão de objetos",
+      "slug": "java-reflection-simplifique-conversao-objetos",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-java-reflection-simplifique-conversao-objetos",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/java-reflection-simplifique-conversao-objetos/certificate"
+    },
+    {
+      "id": 2887,
+      "name": "Java: aplicando a Orientação a Objetos",
+      "slug": "java-aplicando-orientacao-objetos",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-java-aplicando-orientacao-objetos",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/java-aplicando-orientacao-objetos/certificate"
+    },
+    {
+      "id": 2944,
+      "name": "Java: consumindo API, gravando arquivos e lidando com erros",
+      "slug": "java-consumindo-api-gravando-arquivos-lidando-erros",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-java-consumindo-api-gravando-arquivos-lidando-erros",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/java-consumindo-api-gravando-arquivos-lidando-erros/certificate"
+    },
+    {
+      "id": 2858,
+      "name": "Java: criando a sua primeira aplicação",
+      "slug": "java-criando-primeira-aplicacao",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-java-criando-primeira-aplicacao",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/java-criando-primeira-aplicacao/certificate"
+    },
+    {
+      "id": 3356,
+      "name": "Java: criando sua primeira API e conectando ao front",
+      "slug": "java-criando-primeira-api-conectando-front",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-java-criando-primeira-api-conectando-front",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/java-criando-primeira-api-conectando-front/certificate"
+    },
+    {
+      "id": 3355,
+      "name": "Java: persistência de dados e consultas com Spring Data JPA",
+      "slug": "java-persistencia-dados-consultas-spring-data-jpa",
+      "progress": 98,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-java-persistencia-dados-consultas-spring-data-jpa",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/java-persistencia-dados-consultas-spring-data-jpa/certificate"
+    },
+    {
+      "id": 3257,
+      "name": "Java: trabalhando com lambdas, streams e Spring Framework",
+      "slug": "java-trabalhando-lambdas-streams-spring-framework",
+      "progress": 94,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-java-trabalhando-lambdas-streams-spring-framework",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/java-trabalhando-lambdas-streams-spring-framework/certificate"
+    },
+    {
+      "id": 2914,
+      "name": "Java: trabalhando com listas e coleções de dados",
+      "slug": "java-listas-colecoes-dados",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-java-listas-colecoes-dados",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/java-listas-colecoes-dados/certificate"
+    },
+    {
+      "id": 3709,
+      "name": "JavaScript com Node.js: criando sua primeira biblioteca",
+      "slug": "javascript-node-js-criando-primeira-biblioteca",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-javascript-node-js-criando-primeira-biblioteca",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/javascript-node-js-criando-primeira-biblioteca/certificate"
+    },
+    {
+      "id": 3530,
+      "name": "JavaScript: conhecendo arrays",
+      "slug": "javascript-conhecendo-arrays",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-javascript-conhecendo-arrays",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/javascript-conhecendo-arrays/certificate"
+    },
+    {
+      "id": 3561,
+      "name": "JavaScript: conhecendo objetos",
+      "slug": "javascript-conhecendo-objetos",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-javascript-conhecendo-objetos",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/javascript-conhecendo-objetos/certificate"
+    },
+    {
+      "id": 4299,
+      "name": "JavaScript: construindo páginas dinâmicas",
+      "slug": "construindo-paginas-dinamicas-javascript",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-construindo-paginas-dinamicas-javascript",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/construindo-paginas-dinamicas-javascript/certificate"
+    },
+    {
+      "id": 3513,
+      "name": "JavaScript: utilizando tipos, variáveis e funções",
+      "slug": "javascript-utilizando-tipos-variaveis-funcoes",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-javascript-utilizando-tipos-variaveis-funcoes",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/javascript-utilizando-tipos-variaveis-funcoes/certificate"
+    },
+    {
+      "id": 1659,
+      "name": "PostgreSQL",
+      "slug": "introducao-postgresql-primeiros-passos",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-introducao-postgresql-primeiros-passos",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/introducao-postgresql-primeiros-passos/certificate"
+    },
+    {
+      "id": 2685,
+      "name": "RxJS e Angular: programando de forma reativa",
+      "slug": "rxjs-angular-programando-forma-reativa",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-rxjs-angular-programando-forma-reativa",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/rxjs-angular-programando-forma-reativa/certificate"
+    },
+    {
+      "id": 2770,
+      "name": "Spring Boot 3: aplique boas práticas e proteja uma API Rest",
+      "slug": "spring-boot-aplique-boas-praticas-proteja-api-rest",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-spring-boot-aplique-boas-praticas-proteja-api-rest",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/spring-boot-aplique-boas-praticas-proteja-api-rest/certificate"
+    },
+    {
+      "id": 2700,
+      "name": "Spring Boot 3: desenvolva uma API Rest em Java",
+      "slug": "spring-boot-3-desenvolva-api-rest-java",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-spring-boot-3-desenvolva-api-rest-java",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/spring-boot-3-desenvolva-api-rest-java/certificate"
+    },
+    {
+      "id": 2771,
+      "name": "Spring Boot 3: documente, teste e prepare uma API para o deploy",
+      "slug": "spring-boot-3-documente-teste-prepare-api-deploy",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-spring-boot-3-documente-teste-prepare-api-deploy",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/spring-boot-3-documente-teste-prepare-api-deploy/certificate"
+    }
+  ]
+}
