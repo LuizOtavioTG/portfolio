@@ -44,30 +44,48 @@ export class App {
         url: 'https://pomodoro-timer-theta-pearl.vercel.app/',
       },
       liveUrl: 'https://pomodoro-timer-theta-pearl.vercel.app/',
+      githubUrl: 'https://github.com/LuizOtavioTG/pomodoro-timer',
     },
     {
       name: 'Stock Manager',
       status: 'Aguardando deploy',
       summary:
-        'Sistema de estoque gerenciamento de produtos, categorias, estoque e inventário.',
+        'Sistema de gerenciamento de estoque criado para controlar produtos, locais de armazenamento, inventário e movimentações de entrada e saída. O projeto simula uma solução usada por empresas para manter o estoque organizado, rastreável e atualizado.',
       technologies: ['Java 17', 'Spring Boot 3.4.5', 'PostgreSQL', 'Flyway', 'JWT', 'Docker'],
-      highlights: ['Autenticação JWT', 'Permissões por perfil', 'CRUD de produtos', 'Controle de estoque'],
+      highlights: [
+        'Cadastro e gerenciamento de produtos',
+        'Controle de inventário',
+        'Registro de entradas e saídas de estoque',
+        'Organização por locais de armazenamento',
+        'Consulta de movimentações com paginação',
+        'Validação dos dados enviados ao sistema',
+      ],
       decision:
-        'Organizar a API em camadas, com validação, segurança e migrations para manter o domínio previsível.',
+        'Organizei o sistema em camadas com Spring Boot, separando regras de negócio, acesso a dados e objetos de transferência. Usei PostgreSQL, JPA, Flyway e JWT para criar uma estrutura segura, versionada e próxima de um cenário real.',
       preview: {
         kind: 'placeholder',
         label: 'Preview do Stock Manager será ativado após o deploy.',
       },
+      githubUrl: 'https://github.com/LuizOtavioTG/stock-manager',
     },
     {
       name: 'Sistema de Ordens de Serviço',
       status: 'Aguardando deploy',
       summary:
-        'Plataforma para gerenciamento de ordens de serviço, clientes, equipe, agenda e operação mobile/offline.',
+        'Sistema para gerenciamento de ordens de serviço, criado para organizar atendimentos, clientes, equipe técnica e agenda de trabalho. O projeto simula uma solução usada por empresas que precisam controlar solicitações, acompanhar o andamento dos serviços e manter a operação funcionando em campo.',
       technologies: ['Next.js', 'React', 'TypeScript', 'Java 17', 'Spring Boot', 'PostgreSQL'],
-      highlights: ['Dashboard de OS', 'Controle de acesso', 'Agenda', 'Mobile Android', 'Offline sync'],
+      highlights: [
+        'Cadastro e acompanhamento de ordens de serviço',
+        'Gerenciamento de clientes',
+        'Organização da equipe técnica',
+        'Agenda de atendimentos',
+        'Controle de acesso',
+        'Visualização de informações em dashboard',
+        'Suporte a operação mobile',
+        'Sincronização para uso offline e atualização posterior',
+      ],
       decision:
-        'Combinar frontend web/mobile com API Spring Boot para suportar operação em campo e sincronização posterior.',
+        'Estruturei o projeto combinando uma interface web/mobile com backend em Spring Boot, pensando em uma operação que também funcione fora do ambiente de escritório. A proposta técnica foi permitir que a equipe consulte e registre informações em campo, com sincronização posterior dos dados quando houver conexão disponível.',
       preview: {
         kind: 'placeholder',
         label: 'Preview das ordens de serviço será ativado após o deploy.',

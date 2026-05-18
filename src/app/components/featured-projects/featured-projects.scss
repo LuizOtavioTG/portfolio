@@ -424,7 +424,11 @@ h4 {
   text-transform: uppercase;
 }
 
-.details-grid ul{padding:0;margin:0;list-style:none}
+.details-grid ul {
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+}
 
 .details-grid p{margin:0}
 
