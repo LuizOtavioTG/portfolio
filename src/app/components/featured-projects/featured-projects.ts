@@ -35,16 +35,19 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
   readonly projects = input.required<readonly FeaturedProject[]>();
 
   protected activeIndex = 0;
-  protected infoOpenIndex: number | null = null;
-  protected projectRailOpen = false;
+  protected infoOpenIndex: number | null = 0;
+  protected projectRailOpen = true;
   private readonly trustedUrls = new Map<string, SafeResourceUrl>();
   private readonly prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  private readonly initialPanelCloseDelay = 1800;
+  private readonly stickyIntroHoldSlides = 0.55;
   private swipeObserver?: ReturnType<typeof Observer.create>;
   private scrollTrigger?: ScrollTrigger;
-  private scrollTween?: gsap.core.Tween;
+  private scrollTween?: gsap.core.Timeline;
   private glitchTimeline?: gsap.core.Timeline;
   private trackElement?: HTMLElement;
   private lastScrollIndex = 0;
+  private panelCloseTimeout?: ReturnType<typeof window.setTimeout>;
 
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
@@ -65,6 +68,7 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     this.animateActiveSlideContent();
     this.setupSwipeObserver();
     this.setupStickyScroll();
+    this.openPanelsThenCloseIfDeployed(0);
   }
 
   ngOnDestroy(): void {
@@ -72,6 +76,7 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     this.scrollTrigger?.kill();
     this.scrollTween?.kill();
     this.glitchTimeline?.kill();
+    this.clearPanelCloseTimeout();
   }
 
   protected previousProject(): void {
@@ -99,10 +104,20 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
   }
 
   protected toggleProjectRail(): void {
+    if (this.shouldKeepPanelsOpen(this.activeIndex)) {
+      this.projectRailOpen = true;
+      return;
+    }
+
     this.projectRailOpen = !this.projectRailOpen;
   }
 
   protected toggleProjectInfo(index: number): void {
+    if (this.shouldKeepPanelsOpen(index)) {
+      this.infoOpenIndex = index;
+      return;
+    }
+
     this.infoOpenIndex = this.infoOpenIndex === index ? null : index;
   }
 
@@ -151,7 +166,8 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     if (this.scrollTrigger && !this.prefersReducedMotion.matches) {
       const start = this.scrollTrigger.start;
       const end = this.scrollTrigger.end;
-      const progress = total === 1 ? 0 : targetIndex / (total - 1);
+      const totalScrollUnits = this.stickyIntroHoldSlides + total - 1;
+      const progress = targetIndex === 0 ? 0 : (this.stickyIntroHoldSlides + targetIndex) / totalScrollUnits;
 
       window.scrollTo({
         top: start + (end - start) * progress,
@@ -184,19 +200,25 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     }
 
     this.ngZone.runOutsideAngular(() => {
-      this.scrollTween = gsap.to(trackElement, {
-        xPercent: -(total - 1) * 100,
-        ease: 'none',
-        scrollTrigger: {
+      const totalScrollUnits = this.stickyIntroHoldSlides + total - 1;
+      this.scrollTween = gsap
+        .timeline({
+          scrollTrigger: {
           trigger: shellElement,
           start: 'top top+=18',
-          end: () => `+=${Math.max(window.innerHeight * 0.85, 720) * (total - 1)}`,
+          end: () => `+=${Math.max(window.innerHeight * 0.85, 720) * totalScrollUnits}`,
           pin: true,
-          scrub: 0.55,
+          scrub: 0.35,
+          snap: {
+            snapTo: (progress) => this.resolveStickySnapProgress(progress, total),
+            duration: { min: 0.22, max: 0.48 },
+            delay: 0.04,
+            ease: 'power2.out',
+          },
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            const nextIndex = Math.round(self.progress * (total - 1));
+            const nextIndex = this.resolveStickyProjectIndex(self.progress, total);
 
             if (nextIndex === this.lastScrollIndex) {
               return;
@@ -209,17 +231,79 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
               this.animateActiveSlideContent();
             });
           },
-        },
-      });
+          },
+        })
+        .to(trackElement, { xPercent: 0, duration: this.stickyIntroHoldSlides, ease: 'none' })
+        .to(trackElement, { xPercent: -(total - 1) * 100, duration: total - 1, ease: 'none' });
 
       this.scrollTrigger = this.scrollTween.scrollTrigger;
     });
   }
 
+  private resolveStickyProjectIndex(progress: number, total: number): number {
+    const totalScrollUnits = this.stickyIntroHoldSlides + total - 1;
+    const currentUnit = progress * totalScrollUnits;
+    const index = Math.round(Math.max(0, currentUnit - this.stickyIntroHoldSlides));
+
+    return Math.min(total - 1, index);
+  }
+
+  private resolveStickySnapProgress(progress: number, total: number): number {
+    const totalScrollUnits = this.stickyIntroHoldSlides + total - 1;
+    const currentUnit = progress * totalScrollUnits;
+    const targetIndex = Math.round(Math.max(0, currentUnit - this.stickyIntroHoldSlides));
+
+    if (targetIndex <= 0) {
+      return 0;
+    }
+
+    return (this.stickyIntroHoldSlides + Math.min(total - 1, targetIndex)) / totalScrollUnits;
+  }
+
   private setActiveProject(index: number): void {
     this.activeIndex = index;
+
+    if (this.shouldKeepPanelsOpen(index)) {
+      this.clearPanelCloseTimeout();
+      this.infoOpenIndex = index;
+      this.projectRailOpen = true;
+      return;
+    }
+
     this.infoOpenIndex = null;
     this.projectRailOpen = false;
+  }
+
+  private openPanelsThenCloseIfDeployed(index: number): void {
+    this.clearPanelCloseTimeout();
+    this.infoOpenIndex = index;
+    this.projectRailOpen = true;
+
+    if (this.shouldKeepPanelsOpen(index)) {
+      return;
+    }
+
+    this.panelCloseTimeout = window.setTimeout(() => {
+      if (this.activeIndex !== index || this.shouldKeepPanelsOpen(index)) {
+        return;
+      }
+
+      this.infoOpenIndex = null;
+      this.projectRailOpen = false;
+    }, this.initialPanelCloseDelay);
+  }
+
+  private shouldKeepPanelsOpen(index: number): boolean {
+    return !this.projects()[index]?.liveUrl;
+  }
+
+  private clearPanelCloseTimeout(): void {
+    if (!this.panelCloseTimeout) {
+      return;
+    }
+
+    window.clearTimeout(this.panelCloseTimeout);
+    this.panelCloseTimeout = undefined;
   }
 
   private triggerTransitionGlitch(): void {
