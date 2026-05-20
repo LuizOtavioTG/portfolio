@@ -40,12 +40,11 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
   private readonly trustedUrls = new Map<string, SafeResourceUrl>();
   private readonly prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   private readonly initialPanelCloseDelay = 1800;
-  private readonly stickyIntroHoldSlides = 0.55;
   private swipeObserver?: ReturnType<typeof Observer.create>;
   private scrollTrigger?: ScrollTrigger;
-  private scrollTween?: gsap.core.Timeline;
   private glitchTimeline?: gsap.core.Timeline;
   private trackElement?: HTMLElement;
+  private cardElements: HTMLElement[] = [];
   private lastScrollIndex = 0;
   private panelCloseTimeout?: ReturnType<typeof window.setTimeout>;
 
@@ -59,12 +58,13 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.trackElement = this.elementRef.nativeElement.querySelector<HTMLElement>('.carousel-track') ?? undefined;
+    this.cardElements = Array.from(this.elementRef.nativeElement.querySelectorAll<HTMLElement>('.project-card'));
 
     if (!this.trackElement) {
       return;
     }
 
-    gsap.set(this.trackElement, { xPercent: 0 });
+    this.applyStackState(false);
     this.animateActiveSlideContent();
     this.setupSwipeObserver();
     this.setupStickyScroll();
@@ -74,7 +74,6 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.swipeObserver?.kill();
     this.scrollTrigger?.kill();
-    this.scrollTween?.kill();
     this.glitchTimeline?.kill();
     this.clearPanelCloseTimeout();
   }
@@ -149,6 +148,8 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
         dragMinimum: 18,
         onLeft: () => this.ngZone.run(() => this.nextProject()),
         onRight: () => this.ngZone.run(() => this.previousProject()),
+        onUp: () => this.ngZone.run(() => this.nextProject()),
+        onDown: () => this.ngZone.run(() => this.previousProject()),
       });
     });
   }
@@ -156,7 +157,7 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
   private goToProject(index: number): void {
     const total = this.projects().length;
 
-    if (!this.trackElement || total === 0 || index === this.activeIndex) {
+    if (total === 0 || index === this.activeIndex) {
       return;
     }
 
@@ -166,8 +167,7 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     if (this.scrollTrigger && !this.prefersReducedMotion.matches) {
       const start = this.scrollTrigger.start;
       const end = this.scrollTrigger.end;
-      const totalScrollUnits = this.stickyIntroHoldSlides + total - 1;
-      const progress = targetIndex === 0 ? 0 : (this.stickyIntroHoldSlides + targetIndex) / totalScrollUnits;
+      const progress = targetIndex / Math.max(total - 1, 1);
 
       window.scrollTo({
         top: start + (end - start) * progress,
@@ -176,41 +176,28 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
       return;
     }
 
-    if (this.prefersReducedMotion.matches) {
-      gsap.set(this.trackElement, { xPercent: -targetIndex * 100 });
-      return;
-    }
-
-    gsap.to(this.trackElement, {
-      xPercent: -targetIndex * 100,
-      duration: 0.72,
-      ease: 'power3.inOut',
-      overwrite: true,
-      onComplete: () => this.animateActiveSlideContent(),
-    });
+    this.triggerTransitionGlitch();
+    this.applyStackState(!this.prefersReducedMotion.matches);
+    this.animateActiveSlideContent();
   }
 
   private setupStickyScroll(): void {
     const total = this.projects().length;
     const shellElement = this.elementRef.nativeElement.querySelector<HTMLElement>('.carousel-shell');
-    const trackElement = this.trackElement;
 
-    if (!trackElement || !shellElement || total < 2 || this.prefersReducedMotion.matches || window.innerWidth < 940) {
+    if (!shellElement || total < 2 || this.prefersReducedMotion.matches || window.innerWidth < 940) {
       return;
     }
 
     this.ngZone.runOutsideAngular(() => {
-      const totalScrollUnits = this.stickyIntroHoldSlides + total - 1;
-      this.scrollTween = gsap
-        .timeline({
-          scrollTrigger: {
+      this.scrollTrigger = ScrollTrigger.create({
           trigger: shellElement,
           start: 'top top+=18',
-          end: () => `+=${Math.max(window.innerHeight * 0.85, 720) * totalScrollUnits}`,
+          end: () => `+=${Math.max(window.innerHeight * 0.82, 680) * (total - 1)}`,
           pin: true,
           scrub: 0.35,
           snap: {
-            snapTo: (progress) => this.resolveStickySnapProgress(progress, total),
+            snapTo: 1 / (total - 1),
             duration: { min: 0.22, max: 0.48 },
             delay: 0.04,
             ease: 'power2.out',
@@ -218,7 +205,7 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            const nextIndex = this.resolveStickyProjectIndex(self.progress, total);
+            const nextIndex = Math.min(total - 1, Math.round(self.progress * (total - 1)));
 
             if (nextIndex === this.lastScrollIndex) {
               return;
@@ -228,36 +215,12 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
             this.ngZone.run(() => {
               this.setActiveProject(nextIndex);
               this.triggerTransitionGlitch();
+              this.applyStackState(true);
               this.animateActiveSlideContent();
             });
           },
-          },
-        })
-        .to(trackElement, { xPercent: 0, duration: this.stickyIntroHoldSlides, ease: 'none' })
-        .to(trackElement, { xPercent: -(total - 1) * 100, duration: total - 1, ease: 'none' });
-
-      this.scrollTrigger = this.scrollTween.scrollTrigger;
+      });
     });
-  }
-
-  private resolveStickyProjectIndex(progress: number, total: number): number {
-    const totalScrollUnits = this.stickyIntroHoldSlides + total - 1;
-    const currentUnit = progress * totalScrollUnits;
-    const index = Math.round(Math.max(0, currentUnit - this.stickyIntroHoldSlides));
-
-    return Math.min(total - 1, index);
-  }
-
-  private resolveStickySnapProgress(progress: number, total: number): number {
-    const totalScrollUnits = this.stickyIntroHoldSlides + total - 1;
-    const currentUnit = progress * totalScrollUnits;
-    const targetIndex = Math.round(Math.max(0, currentUnit - this.stickyIntroHoldSlides));
-
-    if (targetIndex <= 0) {
-      return 0;
-    }
-
-    return (this.stickyIntroHoldSlides + Math.min(total - 1, targetIndex)) / totalScrollUnits;
   }
 
   private setActiveProject(index: number): void {
@@ -272,6 +235,72 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
 
     this.infoOpenIndex = null;
     this.projectRailOpen = false;
+  }
+
+  private applyStackState(animate: boolean): void {
+    if (!this.cardElements.length) {
+      return;
+    }
+
+    this.cardElements.forEach((cardElement, index) => {
+      const stackState = this.resolveCardStackState(index);
+
+      gsap.set(cardElement, {
+        zIndex: stackState.zIndex,
+        pointerEvents: index === this.activeIndex ? 'auto' : 'none',
+      });
+
+      const tweenVars = {
+        x: stackState.x,
+        y: stackState.y,
+        scale: stackState.scale,
+        rotate: stackState.rotate,
+        autoAlpha: stackState.autoAlpha,
+        duration: animate ? 0.72 : 0,
+        ease: 'power3.inOut',
+        overwrite: true,
+      };
+
+      if (animate) {
+        gsap.to(cardElement, tweenVars);
+        return;
+      }
+
+      gsap.set(cardElement, tweenVars);
+    });
+  }
+
+  private resolveCardStackState(index: number): {
+    x: number;
+    y: number;
+    scale: number;
+    rotate: number;
+    autoAlpha: number;
+    zIndex: number;
+  } {
+    const relativeIndex = index - this.activeIndex;
+
+    if (relativeIndex < 0) {
+      return {
+        x: 88,
+        y: 52,
+        scale: 0.98,
+        rotate: 0,
+        autoAlpha: 0,
+        zIndex: 10 + index,
+      };
+    }
+
+    const stackDepth = Math.min(relativeIndex, 4);
+
+    return {
+      x: stackDepth * -26,
+      y: stackDepth * -22,
+      scale: 1 - stackDepth * 0.018,
+      rotate: 0,
+      autoAlpha: relativeIndex > 5 ? 0 : 1 - stackDepth * 0.08,
+      zIndex: 100 - relativeIndex,
+    };
   }
 
   private openPanelsThenCloseIfDeployed(index: number): void {

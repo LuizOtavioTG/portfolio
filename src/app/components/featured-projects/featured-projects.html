@@ -21,89 +21,63 @@
     [appScrollRevealDuration]="0.64"
     appScrollRevealStart="top 76%"
   >
-    <div class="carousel-controls">
-      <p>{{ (activeIndex + 1).toString().padStart(2, '0') }} / {{ projects().length.toString().padStart(2, '0') }}</p>
-
-      <div>
-        <button
-          type="button"
-          class="control-button"
-          aria-label="Projeto anterior"
-          appHoverLift
-          [appHoverLiftY]="-2"
-          (click)="previousProject()"
-        >
-          &larr;
-        </button>
-        <button
-          type="button"
-          class="control-button"
-          aria-label="Próximo projeto"
-          appHoverLift
-          [appHoverLiftY]="-2"
-          (click)="nextProject()"
-        >
-          &rarr;
-        </button>
-      </div>
-    </div>
-
     <div class="project-showcase" [class.is-rail-open]="projectRailOpen">
-      <button
-        type="button"
-        class="rail-toggle"
-        [attr.aria-expanded]="projectRailOpen"
-        aria-label="Abrir lista de projetos"
-        (click)="toggleProjectRail()"
-        appHoverLift
-        [appHoverLiftY]="-2"
-      >
-        {{ projectRailOpen ? 'Fechar' : 'Projetos' }}
-      </button>
-
-      <nav
-        class="project-rail"
-        aria-label="Selecionar projeto"
-        [attr.aria-hidden]="projectRailOpen ? null : 'true'"
-        [attr.inert]="projectRailOpen ? null : ''"
-      >
-        @for (project of projects(); track project.name; let index = $index) {
-          <button
-            type="button"
-            class="project-rail-item"
-            [class.is-active]="activeIndex === index"
-            [attr.aria-label]="'Mostrar projeto ' + project.name"
-            [attr.aria-current]="activeIndex === index ? 'true' : null"
-            (click)="selectProject(index)"
-            appHoverLift
-            [appHoverLiftY]="-2"
-          >
-            <span class="rail-index">{{ (index + 1).toString().padStart(2, '0') }}</span>
-
-            <span class="rail-content">
-              <strong>{{ project.name }}</strong>
-              <small>{{ project.status }}</small>
-            </span>
-
-            <span class="rail-stack">
-              @for (technology of project.technologies.slice(0, 3); track technology) {
-                <span>{{ technology }}</span>
-              }
-            </span>
-          </button>
-        }
-      </nav>
-
       <div class="carousel-viewport">
         <div class="carousel-track">
           @for (project of projects(); track project.name; let index = $index) {
             <article
               class="project-card"
+              [class.is-active]="activeIndex === index"
               [class.is-info-open]="infoOpenIndex === index"
               aria-roledescription="slide"
               [attr.aria-label]="project.name"
               [attr.aria-hidden]="activeIndex !== index"
             >
+              <button
+                type="button"
+                class="rail-toggle"
+                [attr.aria-expanded]="projectRailOpen"
+                aria-label="Abrir lista de projetos"
+                (click)="toggleProjectRail()"
+                appHoverLift
+                [appHoverLiftY]="-2"
+              >
+                {{ projectRailOpen ? 'Fechar' : 'Projetos' }}
+              </button>
+
+              <nav
+                class="project-rail"
+                aria-label="Selecionar projeto"
+                [attr.aria-hidden]="projectRailOpen ? null : 'true'"
+                [attr.inert]="projectRailOpen ? null : ''"
+              >
+                @for (railProject of projects(); track railProject.name; let railIndex = $index) {
+                  <button
+                    type="button"
+                    class="project-rail-item"
+                    [class.is-active]="activeIndex === railIndex"
+                    [attr.aria-label]="'Mostrar projeto ' + railProject.name"
+                    [attr.aria-current]="activeIndex === railIndex ? 'true' : null"
+                    (click)="selectProject(railIndex)"
+                    appHoverLift
+                    [appHoverLiftY]="-2"
+                  >
+                    <span class="rail-index">{{ (railIndex + 1).toString().padStart(2, '0') }}</span>
+
+                    <span class="rail-content">
+                      <strong>{{ railProject.name }}</strong>
+                      <small>{{ railProject.status }}</small>
+                    </span>
+
+                    <span class="rail-stack">
+                      @for (technology of railProject.technologies.slice(0, 3); track technology) {
+                        <span>{{ technology }}</span>
+                      }
+                    </span>
+                  </button>
+                }
+              </nav>
+
               <div
                 class="project-preview"
                 [attr.data-kind]="project.preview.kind"
