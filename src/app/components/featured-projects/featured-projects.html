@@ -82,26 +82,71 @@
                 class="project-preview"
                 [attr.data-kind]="project.preview.kind"
               >
-                <div class="preview-bar">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <strong>preview-{{ (index + 1).toString().padStart(2, '0') }}</strong>
-                </div>
+                <div class="preview-window">
+                  <div class="preview-bar">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <strong>preview-{{ (index + 1).toString().padStart(2, '0') }}</strong>
+                    <button
+                      type="button"
+                      class="preview-maximize"
+                      [attr.aria-label]="fullscreenPreviewIndex === index ? 'Restaurar preview' : 'Maximizar preview'"
+                      [attr.aria-pressed]="fullscreenPreviewIndex === index"
+                      (click)="togglePreviewFullscreen(index, $event)"
+                      appHoverLift
+                      [appHoverLiftY]="-2"
+                    >
+                      <span aria-hidden="true"></span>
+                    </button>
+                  </div>
 
-                <div class="preview-body">
-                  @if (project.preview.kind === 'iframe' && project.preview.url) {
-                    <iframe
-                      class="preview-frame"
-                      [title]="project.preview.label"
-                      [src]="trustedPreviewUrl(project.preview.url)"
-                      loading="lazy"
-                      referrerpolicy="no-referrer-when-downgrade"
-                    ></iframe>
-                  } @else {
-                    <p>{{ project.preview.label }}</p>
-                    <span>{{ project.status }}</span>
+                  <div class="preview-body">
+                    @if (project.preview.kind === 'iframe' && project.preview.url) {
+                      <iframe
+                        class="preview-frame"
+                        [title]="project.preview.label"
+                        [src]="trustedPreviewUrl(project.preview.url)"
+                        loading="lazy"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                      ></iframe>
+                    } @else {
+                      <p>{{ project.preview.label }}</p>
+                      <span>{{ project.status }}</span>
+                    }
+                  </div>
+
+                  <button
+                    type="button"
+                    class="fullscreen-info-toggle"
+                    [attr.aria-expanded]="infoOpenIndex === index"
+                    [attr.aria-label]="infoOpenIndex === index ? 'Fechar informações de ' + project.name : 'Abrir informações de ' + project.name"
+                    (click)="toggleProjectInfo(index)"
+                  >
+                    {{ infoOpenIndex === index ? 'Fechar' : 'Info' }}
+                  </button>
+
+                  @if (project.liveUrl) {
+                    <a
+                      class="fullscreen-open-app"
+                      [href]="project.liveUrl"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      Abrir aplicação
+                    </a>
                   }
+
+                  <div class="fullscreen-info-panel" [class.is-open]="infoOpenIndex === index">
+                    <strong>{{ project.name }}</strong>
+                    <p>{{ project.summary }}</p>
+                    <div>
+                      @for (technology of project.technologies.slice(0, 4); track technology) {
+                        <span>{{ technology }}</span>
+                      }
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -188,7 +233,6 @@
           }
         </div>
 
-        <div class="transition-glitch" aria-hidden="true"></div>
       </div>
     </div>
   </div>

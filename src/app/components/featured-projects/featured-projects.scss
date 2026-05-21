@@ -13,6 +13,9 @@
 .eyebrow,
 .card-meta,
 .preview-bar,
+.preview-maximize,
+.fullscreen-info-toggle,
+.fullscreen-open-app,
 .rail-toggle,
 .info-toggle,
 .button,
@@ -59,24 +62,6 @@ h2 {
   touch-action: pan-y;
 }
 
-.transition-glitch {
-  position: absolute;
-  inset: 0;
-  z-index: 8;
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-  background:
-    linear-gradient(90deg, transparent 0 6%, rgba(184, 255, 115, 0.2) 6% 7%, transparent 7% 18%),
-    repeating-linear-gradient(
-      to bottom,
-      rgba(184, 255, 115, 0.18) 0 1px,
-      transparent 1px 7px
-    );
-  background-color: rgba(5, 7, 5, 0.2);
-  mix-blend-mode: screen;
-}
-
 .project-showcase {
   position: relative;
   display: block;
@@ -92,7 +77,7 @@ h2 {
   align-content: start;
   width: min(360px, 100%);
   border-right: 1px solid var(--line);
-  background: rgba(5, 7, 5, 0.54);
+  background: rgba(5, 7, 5, 0.96);
   box-shadow: 28px 0 70px rgba(0, 0, 0, 0.46);
   opacity: 0;
   pointer-events: none;
@@ -234,6 +219,15 @@ h2 {
 
 .project-preview {
   display: flex;
+  position: relative;
+  flex-direction: column;
+  min-height: 100%;
+  background: #060906;
+}
+
+.preview-window {
+  display: flex;
+  flex: 1;
   flex-direction: column;
   min-height: 100%;
   background: #060906;
@@ -253,6 +247,113 @@ h2 {
 .preview-bar strong {
   margin-left: auto;
   font-weight: 500;
+}
+
+.preview-maximize {
+  display: inline-grid;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid rgba(185, 255, 190, 0.2);
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+}
+
+.preview-maximize:hover,
+.preview-maximize:focus-visible {
+  background: var(--green);
+  color: #071007;
+  outline: none;
+}
+
+.preview-maximize span {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+}
+
+.fullscreen-info-toggle,
+.fullscreen-open-app,
+.fullscreen-info-panel {
+  display: none;
+}
+
+.project-preview:fullscreen .fullscreen-info-toggle,
+.project-preview:fullscreen .fullscreen-open-app {
+  display: inline-flex;
+}
+
+.fullscreen-info-toggle {
+  position: fixed;
+  right: 206px;
+  bottom: 72px;
+  z-index: 20;
+  min-height: 44px;
+  border: 1px solid var(--green);
+  padding: 14px 16px;
+  background: rgba(5, 7, 5, 0.9);
+  color: var(--green);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.fullscreen-info-toggle:hover,
+.fullscreen-info-toggle:focus-visible {
+  background: var(--green);
+  color: #071007;
+  outline: none;
+}
+
+.fullscreen-open-app {
+  position: fixed;
+  right: 32px;
+  bottom: 72px;
+  z-index: 20;
+  min-height: 44px;
+  padding: 14px 16px;
+  background: var(--green);
+  color: #071007;
+  font-size: 12px;
+  font-weight: 900;
+  text-decoration: none;
+  text-transform: uppercase;
+  animation: open-app-pulse 1.35s ease-in-out infinite;
+}
+
+.project-preview:fullscreen .fullscreen-info-panel.is-open {
+  display: block;
+  position: fixed;
+  right: 32px;
+  bottom: 132px;
+  z-index: 20;
+  width: min(360px, calc(100vw - 36px));
+  padding: 16px;
+  border: 1px solid var(--line-strong);
+  background: rgba(5, 7, 5, 0.94);
+  color: var(--text);
+}
+
+.fullscreen-info-panel p {
+  margin: 10px 0;
+}
+
+.fullscreen-info-panel span {
+  margin-right: 6px;
+  color: var(--green);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+@keyframes open-app-pulse {
+  50% {
+    box-shadow: 0 0 0 10px rgba(184, 255, 115, 0.16);
+    transform: translateY(-2px);
+  }
 }
 
 .preview-body {
@@ -452,10 +553,6 @@ h4 {
     border-bottom: 0;
   }
 
-  .transition-glitch {
-    display: none;
-  }
-
   .project-rail-item {
     min-height: 126px;
     border-right: 0;
@@ -469,15 +566,6 @@ h4 {
   .project-card {
     grid-template-columns: 1fr;
     inset: 54px 12px 12px 48px;
-  }
-
-  .project-preview {
-    min-height: 100%;
-  }
-
-  .preview-frame {
-    height: 100%;
-    min-height: 100%;
   }
 
   .details-grid {
@@ -529,11 +617,6 @@ h4 {
     padding: 0 12px;
     transform: none;
     writing-mode: horizontal-tb;
-  }
-
-  .preview-frame {
-    height: 100%;
-    min-height: 100%;
   }
 
   .card-meta {

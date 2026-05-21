@@ -37,16 +37,19 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
   protected activeIndex = 0;
   protected infoOpenIndex: number | null = 0;
   protected projectRailOpen = true;
+  protected fullscreenPreviewIndex: number | null = null;
   private readonly trustedUrls = new Map<string, SafeResourceUrl>();
   private readonly prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   private readonly initialPanelCloseDelay = 1800;
+  private readonly fullscreenChangeHandler = () => this.ngZone.run(() => this.syncFullscreenState());
   private swipeObserver?: ReturnType<typeof Observer.create>;
   private scrollTrigger?: ScrollTrigger;
-  private glitchTimeline?: gsap.core.Timeline;
+  private fullscreenTimeline?: gsap.core.Timeline;
   private trackElement?: HTMLElement;
   private cardElements: HTMLElement[] = [];
   private lastScrollIndex = 0;
   private panelCloseTimeout?: ReturnType<typeof window.setTimeout>;
+  private fullscreenOriginRect?: Pick<DOMRect, 'left' | 'top' | 'width' | 'height'>;
 
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
@@ -68,14 +71,16 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     this.animateActiveSlideContent();
     this.setupSwipeObserver();
     this.setupStickyScroll();
-    this.openPanelsThenCloseIfDeployed(0);
+    this.openPanelsThenClose(0);
+    document.addEventListener('fullscreenchange', this.fullscreenChangeHandler);
   }
 
   ngOnDestroy(): void {
     this.swipeObserver?.kill();
     this.scrollTrigger?.kill();
-    this.glitchTimeline?.kill();
+    this.fullscreenTimeline?.kill();
     this.clearPanelCloseTimeout();
+    document.removeEventListener('fullscreenchange', this.fullscreenChangeHandler);
   }
 
   protected previousProject(): void {
@@ -103,21 +108,35 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
   }
 
   protected toggleProjectRail(): void {
-    if (this.shouldKeepPanelsOpen(this.activeIndex)) {
-      this.projectRailOpen = true;
-      return;
-    }
-
+    this.clearPanelCloseTimeout();
     this.projectRailOpen = !this.projectRailOpen;
   }
 
   protected toggleProjectInfo(index: number): void {
-    if (this.shouldKeepPanelsOpen(index)) {
-      this.infoOpenIndex = index;
+    this.clearPanelCloseTimeout();
+    this.infoOpenIndex = this.infoOpenIndex === index ? null : index;
+  }
+
+  protected togglePreviewFullscreen(index: number, event: Event): void {
+    const previewElement = (event.currentTarget as HTMLElement).closest<HTMLElement>('.project-preview');
+
+    if (!previewElement) {
       return;
     }
 
-    this.infoOpenIndex = this.infoOpenIndex === index ? null : index;
+    this.clearPanelCloseTimeout();
+
+    if (document.fullscreenElement === previewElement) {
+      this.restorePreviewFullscreen(previewElement);
+      return;
+    }
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen().then(() => this.requestPreviewFullscreen(index, previewElement));
+      return;
+    }
+
+    this.requestPreviewFullscreen(index, previewElement);
   }
 
   protected trustedPreviewUrl(url: string): SafeResourceUrl {
@@ -131,6 +150,116 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     this.trustedUrls.set(url, trustedUrl);
 
     return trustedUrl;
+  }
+
+  private requestPreviewFullscreen(index: number, previewElement: HTMLElement): void {
+    const originRect = previewElement.getBoundingClientRect();
+
+    this.fullscreenOriginRect = {
+      left: originRect.left,
+      top: originRect.top,
+      width: originRect.width,
+      height: originRect.height,
+    };
+    this.infoOpenIndex = null;
+    this.projectRailOpen = false;
+    previewElement
+      .requestFullscreen()
+      .then(() => {
+        this.fullscreenPreviewIndex = index;
+        this.animatePreviewMaximize(previewElement, this.fullscreenOriginRect);
+      })
+      .catch(() => {
+        this.fullscreenPreviewIndex = null;
+        this.fullscreenOriginRect = undefined;
+      });
+  }
+
+  private restorePreviewFullscreen(previewElement: HTMLElement): void {
+    const previewWindow = previewElement.querySelector<HTMLElement>('.preview-window');
+
+    if (!previewWindow || !this.fullscreenOriginRect || this.prefersReducedMotion.matches) {
+      document.exitFullscreen();
+      return;
+    }
+
+    const targetRect = this.fullscreenOriginRect;
+    const scaleX = targetRect.width / window.innerWidth;
+    const scaleY = targetRect.height / window.innerHeight;
+
+    this.fullscreenTimeline?.kill();
+    this.fullscreenTimeline = gsap
+      .timeline({
+        defaults: { ease: 'expo.inOut' },
+        onComplete: () => {
+          document.exitFullscreen().finally(() => {
+            gsap.set(previewWindow, { clearProps: 'transform,transformOrigin,boxShadow,borderRadius' });
+            this.fullscreenOriginRect = undefined;
+          });
+        },
+      })
+      .to(previewWindow, {
+        x: targetRect.left,
+        y: targetRect.top,
+        scaleX,
+        scaleY,
+        transformOrigin: 'top left',
+        boxShadow: '0 24px 90px rgba(0, 0, 0, 0.7)',
+        borderRadius: 0,
+        duration: 0.74,
+      });
+  }
+
+  private animatePreviewMaximize(
+    previewElement: HTMLElement,
+    originRect: Pick<DOMRect, 'left' | 'top' | 'width' | 'height'> | undefined,
+  ): void {
+    const previewWindow = previewElement.querySelector<HTMLElement>('.preview-window');
+
+    if (!previewWindow || !originRect || this.prefersReducedMotion.matches) {
+      return;
+    }
+
+    this.fullscreenTimeline?.kill();
+    this.fullscreenTimeline = gsap
+      .timeline({
+        defaults: { ease: 'expo.inOut' },
+        onComplete: () => gsap.set(previewWindow, { clearProps: 'transform,transformOrigin,boxShadow,borderRadius' }),
+      })
+      .fromTo(
+        previewWindow,
+        {
+          x: originRect.left,
+          y: originRect.top,
+          scaleX: originRect.width / window.innerWidth,
+          scaleY: originRect.height / window.innerHeight,
+          transformOrigin: 'top left',
+          boxShadow: '0 24px 90px rgba(0, 0, 0, 0.7)',
+          borderRadius: 8,
+        },
+        {
+          x: 0,
+          y: 0,
+          scaleX: 1,
+          scaleY: 1,
+          boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
+          borderRadius: 0,
+          duration: 0.86,
+        },
+      );
+  }
+
+  private syncFullscreenState(): void {
+    const fullscreenElement = document.fullscreenElement;
+    const fullscreenPreview = fullscreenElement?.classList.contains('project-preview') ? fullscreenElement : null;
+
+    if (!fullscreenPreview) {
+      this.fullscreenPreviewIndex = null;
+      this.fullscreenOriginRect = undefined;
+      return;
+    }
+
+    this.fullscreenPreviewIndex = this.cardElements.findIndex((cardElement) => cardElement.contains(fullscreenPreview));
   }
 
   private setupSwipeObserver(): void {
@@ -176,7 +305,6 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
       return;
     }
 
-    this.triggerTransitionGlitch();
     this.applyStackState(!this.prefersReducedMotion.matches);
     this.animateActiveSlideContent();
   }
@@ -214,7 +342,6 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
             this.lastScrollIndex = nextIndex;
             this.ngZone.run(() => {
               this.setActiveProject(nextIndex);
-              this.triggerTransitionGlitch();
               this.applyStackState(true);
               this.animateActiveSlideContent();
             });
@@ -225,16 +352,7 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
 
   private setActiveProject(index: number): void {
     this.activeIndex = index;
-
-    if (this.shouldKeepPanelsOpen(index)) {
-      this.clearPanelCloseTimeout();
-      this.infoOpenIndex = index;
-      this.projectRailOpen = true;
-      return;
-    }
-
-    this.infoOpenIndex = null;
-    this.projectRailOpen = false;
+    this.openPanelsThenClose(index);
   }
 
   private applyStackState(animate: boolean): void {
@@ -303,27 +421,19 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     };
   }
 
-  private openPanelsThenCloseIfDeployed(index: number): void {
+  private openPanelsThenClose(index: number): void {
     this.clearPanelCloseTimeout();
     this.infoOpenIndex = index;
     this.projectRailOpen = true;
 
-    if (this.shouldKeepPanelsOpen(index)) {
-      return;
-    }
-
     this.panelCloseTimeout = window.setTimeout(() => {
-      if (this.activeIndex !== index || this.shouldKeepPanelsOpen(index)) {
+      if (this.activeIndex !== index) {
         return;
       }
 
       this.infoOpenIndex = null;
       this.projectRailOpen = false;
     }, this.initialPanelCloseDelay);
-  }
-
-  private shouldKeepPanelsOpen(index: number): boolean {
-    return !this.projects()[index]?.liveUrl;
   }
 
   private clearPanelCloseTimeout(): void {
@@ -333,44 +443,6 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
 
     window.clearTimeout(this.panelCloseTimeout);
     this.panelCloseTimeout = undefined;
-  }
-
-  private triggerTransitionGlitch(): void {
-    const glitchElement = this.elementRef.nativeElement.querySelector<HTMLElement>('.transition-glitch');
-
-    if (!glitchElement || this.prefersReducedMotion.matches) {
-      return;
-    }
-
-    this.glitchTimeline?.kill();
-    this.glitchTimeline = gsap
-      .timeline()
-      .set(glitchElement, { autoAlpha: 1, x: 0 })
-      .to(glitchElement, {
-        clipPath: 'inset(0 0 58% 0)',
-        x: -12,
-        duration: 0.055,
-        ease: 'steps(1)',
-      })
-      .to(glitchElement, {
-        clipPath: 'inset(36% 0 22% 0)',
-        x: 14,
-        duration: 0.055,
-        ease: 'steps(1)',
-      })
-      .to(glitchElement, {
-        clipPath: 'inset(68% 0 0 0)',
-        x: -7,
-        duration: 0.055,
-        ease: 'steps(1)',
-      })
-      .to(glitchElement, {
-        autoAlpha: 0,
-        x: 0,
-        clipPath: 'inset(0 0 0 0)',
-        duration: 0.12,
-        ease: 'power2.out',
-      });
   }
 
   private animateActiveSlideContent(): void {
