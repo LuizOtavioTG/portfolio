@@ -53,6 +53,7 @@ Application bundle generation complete. [2.109 seconds] - ${new Date().toISOStri
       lines.forEach((line, index) => {
         this.setTerminalLine(line, terminalTexts[index]);
       });
+      this.scrollTerminalToBottom();
       cursor?.classList.add('is-visible');
       return;
     }
@@ -66,6 +67,7 @@ Application bundle generation complete. [2.109 seconds] - ${new Date().toISOStri
         if (cursor) {
           line.after(cursor);
           cursor.classList.add('is-visible', 'is-typing');
+          this.scrollTerminalToBottom();
         }
       });
 
@@ -73,6 +75,7 @@ Application bundle generation complete. [2.109 seconds] - ${new Date().toISOStri
       timeline
         .call(() => {
           this.setTerminalLine(line, terminalTexts[index]);
+          this.scrollTerminalToBottom();
           cursor?.classList.remove('is-typing');
         })
         .to({}, { duration: index === 0 || index === 3 ? 0.34 : 0.18 });
@@ -85,6 +88,7 @@ Application bundle generation complete. [2.109 seconds] - ${new Date().toISOStri
         .to({}, { duration: this.getTypingDelay(character, index, line) })
         .call(() => {
           line.textContent = text.slice(0, index + 1);
+          this.scrollTerminalToBottom();
         });
     });
   }
@@ -118,5 +122,17 @@ Application bundle generation complete. [2.109 seconds] - ${new Date().toISOStri
     }
 
     line.innerHTML = `<span class="prompt">$</span> ${text.replace(/^\$\s*/, '')}`;
+  }
+
+  private scrollTerminalToBottom(): void {
+    const terminalBody = this.elementRef.nativeElement.querySelector<HTMLElement>('.terminal-body');
+
+    if (!terminalBody) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      terminalBody.scrollTop = terminalBody.scrollHeight;
+    });
   }
 }

@@ -48,7 +48,7 @@ export class App {
     },
     {
       name: 'Stock Manager',
-      status: 'Aguardando deploy',
+      status: 'Deploy publicado',
       summary:
         'Sistema de gerenciamento de estoque criado para controlar produtos, locais de armazenamento, inventário e movimentações de entrada e saída. O projeto simula uma solução usada por empresas para manter o estoque organizado, rastreável e atualizado.',
       technologies: ['Java 17', 'Spring Boot 3.4.5', 'PostgreSQL', 'Flyway', 'JWT', 'Docker'],
@@ -63,9 +63,11 @@ export class App {
       decision:
         'Organizei o sistema em camadas com Spring Boot, separando regras de negócio, acesso a dados e objetos de transferência. Usei PostgreSQL, JPA, Flyway e JWT para criar uma estrutura segura, versionada e próxima de um cenário real.',
       preview: {
-        kind: 'placeholder',
-        label: 'Preview do Stock Manager será ativado após o deploy.',
+        kind: 'iframe',
+        label: 'Stock Manager',
+        url: 'https://stock-manager.ludev.com.br/',
       },
+      liveUrl: 'https://stock-manager.ludev.com.br/',
       githubUrl: 'https://github.com/LuizOtavioTG/stock-manager',
     },
     {
