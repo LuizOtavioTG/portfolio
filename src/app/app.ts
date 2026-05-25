@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, NgZone, OnDestroy } from '@angular/core';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AboutSection, AboutSectionContent } from './components/about-section/about-section';
 import { ContactInfo, ContactSection } from './components/contact-section/contact-section';
 import { CourseSection } from './components/course-section/course-section';
@@ -14,7 +16,31 @@ import { SkillCategory, SkillStack } from './components/skill-stack/skill-stack'
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
+export class App implements AfterViewInit, OnDestroy {
+  private animationFrameIds: number[] = [];
+  private readonly handleHashChange = (): void => this.scheduleHashScrollRefresh();
+
+  constructor(private readonly ngZone: NgZone) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  ngAfterViewInit(): void {
+    this.ngZone.runOutsideAngular(() => {
+      window.addEventListener('hashchange', this.handleHashChange);
+      this.scheduleHashScrollRefresh();
+    });
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('hashchange', this.handleHashChange);
+
+    for (const frameId of this.animationFrameIds) {
+      window.cancelAnimationFrame(frameId);
+    }
+
+    this.animationFrameIds = [];
+  }
+
   protected readonly profile = {
     name: 'Luiz',
     role: 'Desenvolvedor full-stack',
@@ -151,4 +177,46 @@ export class App {
     github: 'https://github.com/LuizOtavioTG',
     resumeStatus: 'Currículo em PDF pendente',
   };
+
+  private scheduleHashScrollRefresh(): void {
+    const firstFrame = window.requestAnimationFrame(() => {
+      const secondFrame = window.requestAnimationFrame(() => {
+        this.scrollToCurrentHash();
+        ScrollTrigger.refresh();
+      });
+
+      this.animationFrameIds.push(secondFrame);
+    });
+
+    this.animationFrameIds.push(firstFrame);
+  }
+
+  private scrollToCurrentHash(): void {
+    const hash = window.location.hash.replace('#', '');
+
+    if (!hash) {
+      return;
+    }
+
+    const target = document.getElementById(decodeURIComponent(hash));
+
+    if (!target) {
+      return;
+    }
+
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+
+    root.style.scrollBehavior = 'auto';
+
+    try {
+      target.scrollIntoView({
+        block: 'start',
+        inline: 'nearest',
+        behavior: 'auto',
+      });
+    } finally {
+      root.style.scrollBehavior = previousScrollBehavior;
+    }
+  }
 }

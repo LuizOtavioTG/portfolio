@@ -347,6 +347,8 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
             });
           },
       });
+
+      window.requestAnimationFrame(() => ScrollTrigger.refresh());
     });
   }
 
