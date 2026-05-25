@@ -48,6 +48,7 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
   private trackElement?: HTMLElement;
   private cardElements: HTMLElement[] = [];
   private lastScrollIndex = 0;
+  private removeStickyShellListeners?: () => void;
   private panelCloseTimeout?: ReturnType<typeof window.setTimeout>;
   private fullscreenOriginRect?: Pick<DOMRect, 'left' | 'top' | 'width' | 'height'>;
 
@@ -70,7 +71,8 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     this.applyStackState(false);
     this.animateActiveSlideContent();
     this.setupSwipeObserver();
-    this.setupStickyScroll();
+    this.setupScrollDrivenSelection();
+    this.setupStickyShell();
     this.openPanelsThenClose(0);
     document.addEventListener('fullscreenchange', this.fullscreenChangeHandler);
   }
@@ -79,6 +81,7 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     this.swipeObserver?.kill();
     this.scrollTrigger?.kill();
     this.fullscreenTimeline?.kill();
+    this.removeStickyShellListeners?.();
     this.clearPanelCloseTimeout();
     document.removeEventListener('fullscreenchange', this.fullscreenChangeHandler);
   }
@@ -293,61 +296,108 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
     const targetIndex = (index + total) % total;
     this.setActiveProject(targetIndex);
 
-    if (this.scrollTrigger && !this.prefersReducedMotion.matches) {
-      const start = this.scrollTrigger.start;
-      const end = this.scrollTrigger.end;
-      const progress = targetIndex / Math.max(total - 1, 1);
-
-      window.scrollTo({
-        top: start + (end - start) * progress,
-        behavior: 'smooth',
-      });
-      return;
-    }
-
     this.applyStackState(!this.prefersReducedMotion.matches);
     this.animateActiveSlideContent();
   }
 
-  private setupStickyScroll(): void {
+  private setupScrollDrivenSelection(): void {
     const total = this.projects().length;
-    const shellElement = this.elementRef.nativeElement.querySelector<HTMLElement>('.carousel-shell');
+    const sectionElement = this.elementRef.nativeElement.querySelector<HTMLElement>('.projects-section');
 
-    if (!shellElement || total < 2 || this.prefersReducedMotion.matches || window.innerWidth < 940) {
+    if (!sectionElement || total < 2) {
       return;
     }
 
     this.ngZone.runOutsideAngular(() => {
       this.scrollTrigger = ScrollTrigger.create({
-          trigger: shellElement,
-          start: 'top top+=18',
-          end: () => `+=${Math.max(window.innerHeight * 0.82, 680) * (total - 1)}`,
-          pin: true,
-          pinSpacing: true,
-          scrub: 0.35,
-          snap: {
-            snapTo: 1 / (total - 1),
-            duration: { min: 0.22, max: 0.48 },
-            delay: 0.04,
-            ease: 'power2.out',
-          },
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            const nextIndex = Math.min(total - 1, Math.round(self.progress * (total - 1)));
+        trigger: sectionElement,
+        start: 'top top',
+        end: 'bottom top',
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const nextIndex = Math.min(total - 1, Math.round(self.progress * (total - 1)));
 
-            if (nextIndex === this.lastScrollIndex) {
-              return;
-            }
+          if (nextIndex === this.lastScrollIndex) {
+            return;
+          }
 
-            this.lastScrollIndex = nextIndex;
-            this.ngZone.run(() => {
-              this.setActiveProject(nextIndex);
-              this.applyStackState(true);
-              this.animateActiveSlideContent();
-            });
-          },
+          this.lastScrollIndex = nextIndex;
+          this.ngZone.run(() => {
+            this.setActiveProject(nextIndex);
+            this.applyStackState(!this.prefersReducedMotion.matches);
+            this.animateActiveSlideContent();
+          });
+        },
       });
+    });
+  }
+
+  private setupStickyShell(): void {
+    const sectionElement = this.elementRef.nativeElement.querySelector<HTMLElement>('.projects-section');
+    const frameElement = this.elementRef.nativeElement.querySelector<HTMLElement>('.carousel-shell-frame');
+    const shellElement = this.elementRef.nativeElement.querySelector<HTMLElement>('.carousel-shell');
+    const stickyTop = 18;
+
+    if (!sectionElement || !frameElement || !shellElement) {
+      return;
+    }
+
+    const clearStickyStyles = (): void => {
+      shellElement.style.removeProperty('position');
+      shellElement.style.removeProperty('inset');
+      shellElement.style.removeProperty('top');
+      shellElement.style.removeProperty('left');
+      shellElement.style.removeProperty('width');
+      shellElement.style.removeProperty('z-index');
+    };
+
+    const updateStickyShell = (): void => {
+      if (window.innerWidth < 940 || document.fullscreenElement) {
+        clearStickyStyles();
+        return;
+      }
+
+      const scrollY = window.scrollY;
+      const sectionTop = sectionElement.getBoundingClientRect().top + scrollY;
+      const frameTop = frameElement.getBoundingClientRect().top + scrollY;
+      const frameRect = frameElement.getBoundingClientRect();
+      const shellHeight = shellElement.offsetHeight;
+      const start = frameTop - stickyTop;
+      const end = sectionTop + sectionElement.offsetHeight - shellHeight - stickyTop;
+
+      if (scrollY < start) {
+        clearStickyStyles();
+        return;
+      }
+
+      shellElement.style.zIndex = '1';
+
+      if (scrollY >= end) {
+        shellElement.style.position = 'absolute';
+        shellElement.style.inset = 'auto auto auto 0';
+        shellElement.style.top = `${end + stickyTop - frameTop}px`;
+        shellElement.style.left = '0';
+        shellElement.style.width = '100%';
+        return;
+      }
+
+      shellElement.style.position = 'fixed';
+      shellElement.style.inset = 'auto';
+      shellElement.style.top = `${stickyTop}px`;
+      shellElement.style.left = `${frameRect.left}px`;
+      shellElement.style.width = `${frameRect.width}px`;
+    };
+
+    this.ngZone.runOutsideAngular(() => {
+      window.addEventListener('scroll', updateStickyShell, { passive: true });
+      window.addEventListener('resize', updateStickyShell);
+      updateStickyShell();
+
+      this.removeStickyShellListeners = (): void => {
+        window.removeEventListener('scroll', updateStickyShell);
+        window.removeEventListener('resize', updateStickyShell);
+        clearStickyStyles();
+      };
     });
   }
 

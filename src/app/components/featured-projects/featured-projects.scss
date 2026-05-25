@@ -6,6 +6,12 @@
   padding: 90px 0 118px;
 }
 
+@media (min-width: 940px) {
+  .projects-section {
+    padding-bottom: calc(118px + max(164vh, 1360px));
+  }
+}
+
 .section-heading {
   margin-bottom: 12px;
 }
@@ -51,6 +57,11 @@ h2 {
 
 .carousel-shell {
   background: transparent;
+}
+
+.carousel-shell-frame {
+  position: relative;
+  min-height: clamp(720px, 84vh, 940px);
 }
 
 .carousel-viewport {

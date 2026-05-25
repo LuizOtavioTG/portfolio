@@ -12,19 +12,20 @@
     </p>
   </div>
 
-  <div
-    class="carousel-shell"
-    aria-roledescription="carousel"
-    aria-label="Projetos em destaque"
-  >
+  <div class="carousel-shell-frame">
     <div
-      class="project-showcase"
-      [class.is-rail-open]="projectRailOpen"
-      appScrollReveal
-      [appScrollRevealY]="30"
-      [appScrollRevealDuration]="0.64"
-      appScrollRevealStart="top 76%"
+      class="carousel-shell"
+      aria-roledescription="carousel"
+      aria-label="Projetos em destaque"
     >
+      <div
+        class="project-showcase"
+        [class.is-rail-open]="projectRailOpen"
+        appScrollReveal
+        [appScrollRevealY]="30"
+        [appScrollRevealDuration]="0.64"
+        appScrollRevealStart="top 92%"
+      >
       <div class="carousel-viewport">
         <div class="carousel-track">
           @for (project of projects(); track project.name; let index = $index) {
@@ -238,5 +239,6 @@
 
       </div>
     </div>
+  </div>
   </div>
 </section>
