@@ -16,12 +16,15 @@
     class="carousel-shell"
     aria-roledescription="carousel"
     aria-label="Projetos em destaque"
-    appScrollReveal
-    [appScrollRevealY]="30"
-    [appScrollRevealDuration]="0.64"
-    appScrollRevealStart="top 76%"
   >
-    <div class="project-showcase" [class.is-rail-open]="projectRailOpen">
+    <div
+      class="project-showcase"
+      [class.is-rail-open]="projectRailOpen"
+      appScrollReveal
+      [appScrollRevealY]="30"
+      [appScrollRevealDuration]="0.64"
+      appScrollRevealStart="top 76%"
+    >
       <div class="carousel-viewport">
         <div class="carousel-track">
           @for (project of projects(); track project.name; let index = $index) {

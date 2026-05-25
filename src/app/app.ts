@@ -181,8 +181,15 @@ export class App implements AfterViewInit, OnDestroy {
   private scheduleHashScrollRefresh(): void {
     const firstFrame = window.requestAnimationFrame(() => {
       const secondFrame = window.requestAnimationFrame(() => {
-        this.scrollToCurrentHash();
         ScrollTrigger.refresh();
+
+        this.scrollToCurrentHash();
+
+        const thirdFrame = window.requestAnimationFrame(() => {
+          ScrollTrigger.refresh();
+        });
+
+        this.animationFrameIds.push(thirdFrame);
       });
 
       this.animationFrameIds.push(secondFrame);

@@ -17,8 +17,6 @@ export class ScrollReveal implements AfterViewInit, OnDestroy {
 
   private readonly prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   private animationContext?: gsap.Context;
-  private refreshFrame?: number;
-  private readonly refreshOnLoad = (): void => ScrollTrigger.refresh();
 
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
@@ -72,22 +70,11 @@ export class ScrollReveal implements AfterViewInit, OnDestroy {
           onEnter: playReveal,
           onEnterBack: this.once() ? undefined : playReveal,
         });
-
-        this.refreshFrame = window.requestAnimationFrame(() => {
-          ScrollTrigger.refresh();
-        });
-
-        window.addEventListener('load', this.refreshOnLoad, { once: true });
       }, this.elementRef.nativeElement);
     });
   }
 
   ngOnDestroy(): void {
-    if (this.refreshFrame !== undefined) {
-      window.cancelAnimationFrame(this.refreshFrame);
-    }
-
-    window.removeEventListener('load', this.refreshOnLoad);
     this.animationContext?.revert();
   }
 }

@@ -323,6 +323,7 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
           start: 'top top+=18',
           end: () => `+=${Math.max(window.innerHeight * 0.82, 680) * (total - 1)}`,
           pin: true,
+          pinSpacing: true,
           scrub: 0.35,
           snap: {
             snapTo: 1 / (total - 1),
@@ -347,8 +348,6 @@ export class FeaturedProjects implements AfterViewInit, OnDestroy {
             });
           },
       });
-
-      window.requestAnimationFrame(() => ScrollTrigger.refresh());
     });
   }
 
