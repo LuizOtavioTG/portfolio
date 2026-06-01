@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-05-18T00:31:40.182Z",
+  "updatedAt": "2026-06-01T04:03:12.516Z",
   "platform": "Alura",
-  "totalCourses": 50,
+  "totalCourses": 52,
   "courses": [
     {
       "id": 3491,
@@ -454,6 +454,16 @@
       "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/javascript-utilizando-tipos-variaveis-funcoes/certificate"
     },
     {
+      "id": 2145,
+      "name": "NGINX: servidor Web, Proxy Reverso e API Gateway",
+      "slug": "nginx-servidor-web-proxy-reverso-api-gateway",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-nginx-servidor-web-proxy-reverso-api-gateway",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/nginx-servidor-web-proxy-reverso-api-gateway/certificate"
+    },
+    {
       "id": 1659,
       "name": "PostgreSQL",
       "slug": "introducao-postgresql-primeiros-passos",
@@ -462,6 +472,16 @@
       "platform": "Alura",
       "courseUrl": "https://www.alura.com.br/curso-online-introducao-postgresql-primeiros-passos",
       "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/introducao-postgresql-primeiros-passos/certificate"
+    },
+    {
+      "id": 4555,
+      "name": "Praticando Java: variáveis e tipos",
+      "slug": "praticando-java-variaveis-tipos",
+      "progress": 100,
+      "finished": true,
+      "platform": "Alura",
+      "courseUrl": "https://www.alura.com.br/curso-online-praticando-java-variaveis-tipos",
+      "certificateUrl": "https://cursos.alura.com.br/user/bc-luizo/course/praticando-java-variaveis-tipos/certificate"
     },
     {
       "id": 2685,
