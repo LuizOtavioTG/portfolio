@@ -5,10 +5,10 @@
     [appScrollRevealY]="20"
     [appScrollRevealStagger]="0.06"
   >
-    <p class="eyebrow" appScrambleText>Cursos realizados / Etapa 04</p>
-    <h2 id="courses-title">Formação contínua aplicada ao código.</h2>
+    <p class="eyebrow" [appScrambleText]="'Cursos realizados / Etapa 04' | translate">{{ 'Cursos realizados / Etapa 04' | translate }}</p>
+    <h2 id="courses-title">{{ 'Formação contínua aplicada ao código.' | translate }}</h2>
     <p class="section-copy">
-      Cursos e formações que complementam minha evolução contínua em desenvolvimento web, APIs, versionamento, containers e boas práticas de software.
+      {{ 'Cursos e formações que complementam minha evolução contínua em desenvolvimento web, APIs, versionamento, containers e boas práticas de software.' | translate }}
     </p>
   </div>
 
@@ -20,18 +20,18 @@
     [appScrollRevealStagger]="0.07"
     appScrollRevealStart="top 92%"
   >
-    <div class="track-grid" aria-label="Resumo por trilha">
+    <div class="track-grid" [attr.aria-label]="'Resumo por trilha' | translate">
       @for (track of trackHighlights(); track track.name) {
         <article class="track-card" appHoverLift>
-          <span>{{ track.count.toString().padStart(2, '0') }}</span>
-          <h3>{{ track.name }}</h3>
-          <p>{{ track.description }}</p>
+          <span>{{ (track.count.toString().padStart(2, '0')) | translate }}</span>
+          <h3>{{ (track.name) | translate }}</h3>
+          <p>{{ (track.description) | translate }}</p>
         </article>
       }
     </div>
 
     <div class="course-list">
-      <div class="filter-bar" aria-label="Filtrar cursos por trilha">
+      <div class="filter-bar" [attr.aria-label]="'Filtrar cursos por trilha' | translate">
         @for (filter of filters(); track filter.label) {
           <button
             type="button"
@@ -41,21 +41,21 @@
             appHoverLift
             [appHoverLiftY]="-2"
           >
-            <span>{{ filter.label }}</span>
-            <small>{{ filter.count }}</small>
+            <span>{{ (filter.label) | translate }}</span>
+            <small>{{ (filter.count) | translate }}</small>
           </button>
         }
       </div>
 
-      <div class="course-table" role="list" [attr.aria-label]="'Cursos em ' + activeFilter()">
+      <div class="course-table" role="list" [attr.aria-label]="('Cursos em ' | translate) + (activeFilter() | translate)">
         @for (course of filteredCourses(); track course.id; let index = $index) {
           <article class="course-row" role="listitem">
-            <span class="course-index">{{ (index + 1).toString().padStart(2, '0') }}</span>
+            <span class="course-index">{{ ((index + 1).toString().padStart(2, '0')) | translate }}</span>
 
             <div class="course-content">
               <div>
-                <h3>{{ course.name }}</h3>
-                <p>{{ course.track }} · {{ course.progress }}% concluído</p>
+                <h3>{{ (course.name) | translate }}</h3>
+                <p>{{ (course.track) | translate }} · {{ (course.progress) | translate }}% {{ 'concluído' | translate }}</p>
               </div>
 
               <a
@@ -65,7 +65,7 @@
                 appHoverLift
                 [appHoverLiftY]="-2"
               >
-                Certificado
+                {{ 'Certificado' | translate }}
               </a>
             </div>
           </article>

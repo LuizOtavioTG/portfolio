@@ -5,10 +5,10 @@
     [appScrollRevealY]="20"
     [appScrollRevealStagger]="0.06"
   >
-    <p class="eyebrow" appScrambleText>Projetos em destaque / Etapa 02</p>
-    <h2 id="projects-title">Aplicações publicadas e prontas para teste.</h2>
+    <p class="eyebrow" [appScrambleText]="'Projetos em destaque / Etapa 02' | translate">{{ 'Projetos em destaque / Etapa 02' | translate }}</p>
+    <h2 id="projects-title">{{ 'Aplicações publicadas e prontas para teste.' | translate }}</h2>
     <p class="section-copy">
-      Explore os projetos, teste as aplicações e veja na prática como conecto interface, lógica de negócio e tecnologia para resolver problemas reais.
+      {{ 'Explore os projetos, teste as aplicações e veja na prática como conecto interface, lógica de negócio e tecnologia para resolver problemas reais.' | translate }}
     </p>
   </div>
 
@@ -16,7 +16,7 @@
     <div
       class="carousel-shell"
       aria-roledescription="carousel"
-      aria-label="Projetos em destaque"
+      [attr.aria-label]="'Projetos em destaque' | translate"
     >
       <div
         class="project-showcase"
@@ -34,24 +34,24 @@
               [class.is-active]="activeIndex === index"
               [class.is-info-open]="infoOpenIndex === index"
               aria-roledescription="slide"
-              [attr.aria-label]="project.name"
+              [attr.aria-label]="project.name | translate"
               [attr.aria-hidden]="activeIndex !== index"
             >
               <button
                 type="button"
                 class="rail-toggle"
                 [attr.aria-expanded]="projectRailOpen"
-                aria-label="Abrir lista de projetos"
+                [attr.aria-label]="'Abrir lista de projetos' | translate"
                 (click)="toggleProjectRail()"
                 appHoverLift
                 [appHoverLiftY]="-2"
               >
-                {{ projectRailOpen ? 'Fechar' : 'Projetos' }}
+                {{ (projectRailOpen ? 'Fechar' : 'Projetos') | translate }}
               </button>
 
               <nav
                 class="project-rail"
-                aria-label="Selecionar projeto"
+                [attr.aria-label]="'Selecionar projeto' | translate"
                 [attr.aria-hidden]="projectRailOpen ? null : 'true'"
                 [attr.inert]="projectRailOpen ? null : ''"
               >
@@ -60,22 +60,22 @@
                     type="button"
                     class="project-rail-item"
                     [class.is-active]="activeIndex === railIndex"
-                    [attr.aria-label]="'Mostrar projeto ' + railProject.name"
+                    [attr.aria-label]="('Mostrar projeto ' | translate) + (railProject.name | translate)"
                     [attr.aria-current]="activeIndex === railIndex ? 'true' : null"
                     (click)="selectProject(railIndex)"
                     appHoverLift
                     [appHoverLiftY]="-2"
                   >
-                    <span class="rail-index">{{ (railIndex + 1).toString().padStart(2, '0') }}</span>
+                    <span class="rail-index">{{ ((railIndex + 1).toString().padStart(2, '0')) | translate }}</span>
 
                     <span class="rail-content">
-                      <strong>{{ railProject.name }}</strong>
-                      <small>{{ railProject.status }}</small>
+                      <strong>{{ (railProject.name) | translate }}</strong>
+                      <small>{{ (railProject.status) | translate }}</small>
                     </span>
 
                     <span class="rail-stack">
                       @for (technology of railProject.technologies.slice(0, 3); track technology) {
-                        <span>{{ technology }}</span>
+                        <span>{{ (technology) | translate }}</span>
                       }
                     </span>
                   </button>
@@ -91,11 +91,11 @@
                     <span></span>
                     <span></span>
                     <span></span>
-                    <strong>preview-{{ (index + 1).toString().padStart(2, '0') }}</strong>
+                    <strong>preview-{{ ((index + 1).toString().padStart(2, '0')) | translate }}</strong>
                     <button
                       type="button"
                       class="preview-maximize"
-                      [attr.aria-label]="fullscreenPreviewIndex === index ? 'Restaurar preview' : 'Maximizar preview'"
+                      [attr.aria-label]="fullscreenPreviewIndex === index ? ('Restaurar preview' | translate) : ('Maximizar preview' | translate)"
                       [attr.aria-pressed]="fullscreenPreviewIndex === index"
                       (click)="togglePreviewFullscreen(index, $event)"
                       appHoverLift
@@ -109,15 +109,15 @@
                     @if (project.preview.kind === 'iframe' && project.preview.url) {
                       <iframe
                         class="preview-frame"
-                        [title]="project.preview.label"
+                        [title]="project.preview.label | translate"
                         [src]="trustedPreviewUrl(project.preview.url)"
                         loading="lazy"
                         allowfullscreen
                         referrerpolicy="no-referrer-when-downgrade"
                       ></iframe>
                     } @else {
-                      <p>{{ project.preview.label }}</p>
-                      <span>{{ project.status }}</span>
+                      <p>{{ (project.preview.label) | translate }}</p>
+                      <span>{{ (project.status) | translate }}</span>
                     }
                   </div>
 
@@ -125,10 +125,10 @@
                     type="button"
                     class="fullscreen-info-toggle"
                     [attr.aria-expanded]="infoOpenIndex === index"
-                    [attr.aria-label]="infoOpenIndex === index ? 'Fechar informações de ' + project.name : 'Abrir informações de ' + project.name"
+                    [attr.aria-label]="infoOpenIndex === index ? ('Fechar informações de ' | translate) + (project.name | translate) : ('Abrir informações de ' | translate) + (project.name | translate)"
                     (click)="toggleProjectInfo(index)"
                   >
-                    {{ infoOpenIndex === index ? 'Fechar' : 'Info' }}
+                    {{ (infoOpenIndex === index ? 'Fechar' : 'Info') | translate }}
                   </button>
 
                   @if (project.liveUrl) {
@@ -138,16 +138,16 @@
                       target="_blank"
                       rel="noopener"
                     >
-                      Abrir aplicação
+                      {{ 'Abrir aplicação' | translate }}
                     </a>
                   }
 
                   <div class="fullscreen-info-panel" [class.is-open]="infoOpenIndex === index">
-                    <strong>{{ project.name }}</strong>
-                    <p>{{ project.summary }}</p>
+                    <strong>{{ (project.name) | translate }}</strong>
+                    <p>{{ (project.summary) | translate }}</p>
                     <div>
                       @for (technology of project.technologies.slice(0, 4); track technology) {
-                        <span>{{ technology }}</span>
+                        <span>{{ (technology) | translate }}</span>
                       }
                     </div>
                   </div>
@@ -158,12 +158,12 @@
                 type="button"
                 class="info-toggle"
                 [attr.aria-expanded]="infoOpenIndex === index"
-                [attr.aria-label]="infoOpenIndex === index ? 'Fechar informações de ' + project.name : 'Abrir informações de ' + project.name"
+                [attr.aria-label]="infoOpenIndex === index ? ('Fechar informações de ' | translate) + (project.name | translate) : ('Abrir informações de ' | translate) + (project.name | translate)"
                 (click)="toggleProjectInfo(index)"
                 appHoverLift
                 [appHoverLiftY]="-2"
               >
-                {{ infoOpenIndex === index ? 'Fechar' : 'Info' }}
+                {{ (infoOpenIndex === index ? 'Fechar' : 'Info') | translate }}
               </button>
 
               <div
@@ -172,32 +172,32 @@
                 [attr.inert]="infoOpenIndex === index ? null : ''"
               >
                 <div class="card-meta">
-                  <span>{{ (index + 1).toString().padStart(3, '0') }}</span>
-                  <span>{{ project.status }}</span>
+                  <span>{{ ((index + 1).toString().padStart(3, '0')) | translate }}</span>
+                  <span>{{ (project.status) | translate }}</span>
                 </div>
 
-                <h3>{{ project.name }}</h3>
-                <p class="summary">{{ project.summary }}</p>
+                <h3>{{ (project.name) | translate }}</h3>
+                <p class="summary">{{ (project.summary) | translate }}</p>
 
-                <ul class="tech-list" aria-label="Tecnologias usadas">
+                <ul class="tech-list" [attr.aria-label]="'Tecnologias usadas' | translate">
                   @for (technology of project.technologies; track technology) {
-                    <li>{{ technology }}</li>
+                    <li>{{ (technology) | translate }}</li>
                   }
                 </ul>
 
                 <div class="details-grid">
                   <div>
-                    <h4>Funcionalidades</h4>
+                    <h4>{{ 'Funcionalidades' | translate }}</h4>
                     <ul>
                       @for (highlight of project.highlights; track highlight) {
-                        <li>{{ highlight }}</li>
+                        <li>{{ (highlight) | translate }}</li>
                       }
                     </ul>
                   </div>
 
                   <div>
-                    <h4>Decisão técnica</h4>
-                    <p>{{ project.decision }}</p>
+                    <h4>{{ 'Decisão técnica' | translate }}</h4>
+                    <p>{{ (project.decision) | translate }}</p>
                   </div>
                 </div>
 
@@ -211,10 +211,10 @@
                       appHoverLift
                       [appHoverLiftY]="-3"
                     >
-                      Abrir projeto
+                      {{ 'Abrir projeto' | translate }}
                     </a>
                   } @else {
-                    <span class="button button-disabled" aria-disabled="true">Deploy pendente</span>
+                    <span class="button button-disabled" aria-disabled="true">{{ 'Deploy pendente' | translate }}</span>
                   }
 
                   @if (project.githubUrl) {
@@ -229,7 +229,7 @@
                       GitHub
                     </a>
                   } @else {
-                    <span class="button button-disabled" aria-disabled="true">GitHub pendente</span>
+                    <span class="button button-disabled" aria-disabled="true">{{ 'GitHub pendente' | translate }}</span>
                   }
                 </div>
               </div>

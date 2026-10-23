@@ -1,3 +1,4 @@
+import { TranslatePipe } from '../../i18n/translate.pipe';
 import { Component, input } from '@angular/core';
 import { HoverLift } from '../../directives/hover-lift';
 import { ScrollReveal } from '../../directives/scroll-reveal';
@@ -12,7 +13,7 @@ export interface PortfolioProfile {
 
 @Component({
   selector: 'app-intro-hero',
-  imports: [TerminalPanel, ScrambleText, ScrollReveal, HoverLift],
+  imports: [TranslatePipe, TerminalPanel, ScrambleText, ScrollReveal, HoverLift],
   templateUrl: './intro-hero.html',
   styleUrl: './intro-hero.scss',
 })

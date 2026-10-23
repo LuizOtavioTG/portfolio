@@ -5,8 +5,8 @@
     [appScrollRevealY]="20"
     [appScrollRevealStagger]="0.06"
   >
-    <p class="eyebrow" appScrambleText>Sobre você / Etapa 04</p>
-    <h2 id="about-title">Sobre mim</h2>
+    <p class="eyebrow" [appScrambleText]="'Sobre você / Etapa 04' | translate">{{ 'Sobre você / Etapa 04' | translate }}</p>
+    <h2 id="about-title">{{ 'Sobre mim' | translate }}</h2>
   </div>
 
   <div class="about-grid">
@@ -18,13 +18,13 @@
       [appScrollRevealStagger]="0.055"
     >
       <div class="card-meta">
-        <span>Perfil</span>
+        <span>{{ 'Perfil' | translate }}</span>
         <span>Full-stack</span>
       </div>
 
-      <p>{{ content().intro }}</p>
-      <p>{{ content().experience }}</p>
-      <p class="difference">{{ content().difference }}</p>
+      <p>{{ (content().intro) | translate }}</p>
+      <p>{{ (content().experience) | translate }}</p>
+      <p class="difference">{{ (content().difference) | translate }}</p>
     </article>
 
     <div
@@ -37,9 +37,9 @@
     >
       @for (detail of content().details; track detail.title; let index = $index) {
         <article appHoverLift>
-          <span>{{ (index + 1).toString().padStart(2, '0') }}</span>
-          <h3>{{ detail.title }}</h3>
-          <p>{{ detail.text }}</p>
+          <span>{{ ((index + 1).toString().padStart(2, '0')) | translate }}</span>
+          <h3>{{ (detail.title) | translate }}</h3>
+          <p>{{ (detail.text) | translate }}</p>
         </article>
       }
     </div>

@@ -1,9 +1,16 @@
-import { AfterViewInit, Directive, ElementRef, NgZone, OnDestroy } from '@angular/core';
+import { AfterViewInit, Directive, Input, ElementRef, NgZone, OnDestroy } from '@angular/core';
 
 @Directive({
   selector: '[appScrambleText]',
 })
 export class ScrambleText implements AfterViewInit, OnDestroy {
+  @Input() set appScrambleText(value: string | number) {
+    if (value === '') return;
+    cancelAnimationFrame(this.animationFrame);
+    this.originalText = String(value);
+    this.elementRef.nativeElement.textContent = this.originalText;
+  }
+
   private readonly characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_/.:-';
   private readonly prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   private animationFrame = 0;

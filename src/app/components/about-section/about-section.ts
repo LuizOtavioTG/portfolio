@@ -1,3 +1,4 @@
+import { TranslatePipe } from '../../i18n/translate.pipe';
 import { Component, input } from '@angular/core';
 import { HoverLift } from '../../directives/hover-lift';
 import { ScrambleText } from '../../directives/scramble-text';
@@ -17,7 +18,7 @@ export interface AboutSectionContent {
 
 @Component({
   selector: 'app-about-section',
-  imports: [ScrambleText, ScrollReveal, HoverLift],
+  imports: [TranslatePipe, ScrambleText, ScrollReveal, HoverLift],
   templateUrl: './about-section.html',
   styleUrl: './about-section.scss',
 })

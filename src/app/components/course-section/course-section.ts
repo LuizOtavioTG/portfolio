@@ -1,3 +1,4 @@
+import { TranslatePipe } from '../../i18n/translate.pipe';
 import { Component, computed, signal } from '@angular/core';
 import { HoverLift } from '../../directives/hover-lift';
 import { ScrambleText } from '../../directives/scramble-text';
@@ -35,7 +36,7 @@ const data = coursesData as AluraCoursesData;
 
 @Component({
   selector: 'app-course-section',
-  imports: [ScrambleText, ScrollReveal, HoverLift],
+  imports: [TranslatePipe, ScrambleText, ScrollReveal, HoverLift],
   templateUrl: './course-section.html',
   styleUrl: './course-section.scss',
 })

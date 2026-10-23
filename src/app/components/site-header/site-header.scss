@@ -73,6 +73,8 @@
 .nav-links {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
   padding: 6px;
   border: 1px solid var(--line);
   background: rgba(5, 7, 5, 0.72);
@@ -120,4 +122,33 @@
     padding: 9px 8px;
     font-size: 11px;
   }
+}
+
+.language-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding-left: 6px;
+  border-left: 1px solid var(--line);
+}
+
+.language-switch button {
+  min-width: 38px;
+  min-height: 36px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.language-switch button[aria-pressed='true'],
+.language-switch button:hover {
+  background: rgba(184, 255, 115, 0.08);
+  color: var(--green);
+}
+
+.language-switch button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
 }

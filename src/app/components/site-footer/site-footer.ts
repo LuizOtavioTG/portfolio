@@ -1,6 +1,8 @@
+import { TranslatePipe } from '../../i18n/translate.pipe';
 import { Component, input } from '@angular/core';
 
 @Component({
+  imports: [TranslatePipe],
   selector: 'app-site-footer',
   templateUrl: './site-footer.html',
   styleUrl: './site-footer.scss',

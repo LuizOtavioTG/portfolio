@@ -5,10 +5,10 @@
     [appScrollRevealY]="20"
     [appScrollRevealStagger]="0.06"
   >
-    <p class="eyebrow" appScrambleText>Stack e habilidades / Etapa 03</p>
-    <h2 id="stack-title">Tecnologias principais</h2>
+    <p class="eyebrow" [appScrambleText]="'Stack e habilidades / Etapa 03' | translate">{{ 'Stack e habilidades / Etapa 03' | translate }}</p>
+    <h2 id="stack-title">{{ 'Tecnologias principais' | translate }}</h2>
     <p class="section-copy">
-      Tecnologias que utilizo para criar aplicações completas, da interface ao deploy, com foco em organização, performance e manutenção.
+      {{ 'Tecnologias que utilizo para criar aplicações completas, da interface ao deploy, com foco em organização, performance e manutenção.' | translate }}
     </p>
   </div>
 
@@ -23,16 +23,16 @@
     @for (category of categories(); track category.name; let index = $index) {
       <article class="stack-card" appHoverLift>
         <div class="card-meta">
-          <span>{{ (index + 1).toString().padStart(2, '0') }}</span>
-          <span>{{ category.name }}</span>
+          <span>{{ ((index + 1).toString().padStart(2, '0')) | translate }}</span>
+          <span>{{ (category.name) | translate }}</span>
         </div>
 
-        <h3>{{ category.name }}</h3>
-        <p>{{ category.description }}</p>
+        <h3>{{ (category.name) | translate }}</h3>
+        <p>{{ (category.description) | translate }}</p>
 
         <ul>
           @for (skill of category.skills; track skill) {
-            <li>{{ skill }}</li>
+            <li>{{ (skill) | translate }}</li>
           }
         </ul>
       </article>

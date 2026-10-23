@@ -1,3 +1,4 @@
+import { TranslatePipe } from '../../i18n/translate.pipe';
 import { Component, input } from '@angular/core';
 import { HoverLift } from '../../directives/hover-lift';
 import { ScrambleText } from '../../directives/scramble-text';
@@ -12,7 +13,7 @@ export interface ContactInfo {
 
 @Component({
   selector: 'app-contact-section',
-  imports: [ScrambleText, ScrollReveal, HoverLift],
+  imports: [TranslatePipe, ScrambleText, ScrollReveal, HoverLift],
   templateUrl: './contact-section.html',
   styleUrl: './contact-section.scss',
 })

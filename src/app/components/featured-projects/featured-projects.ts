@@ -1,3 +1,4 @@
+import { TranslatePipe } from '../../i18n/translate.pipe';
 import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, input } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { gsap } from 'gsap';
@@ -27,7 +28,7 @@ export interface FeaturedProject {
 
 @Component({
   selector: 'app-featured-projects',
-  imports: [ScrambleText, ScrollReveal, HoverLift],
+  imports: [TranslatePipe, ScrambleText, ScrollReveal, HoverLift],
   templateUrl: './featured-projects.html',
   styleUrl: './featured-projects.scss',
 })

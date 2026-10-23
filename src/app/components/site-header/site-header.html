@@ -1,15 +1,19 @@
 <header class="site-header">
-  <a class="brand" href="#top" aria-label="Voltar ao inicio">
+  <a class="brand" href="#top" [attr.aria-label]="'Voltar ao inicio' | translate">
     <span class="brand-mark">LO</span>
     <span>luiz.dev:portfolio</span>
   </a>
 
-  <nav class="nav-links" aria-label="Navegacao principal">
-    <a href="#apresentacao">Apresentacao</a>
-    <a href="#projetos">Projetos</a>
+  <nav class="nav-links" [attr.aria-label]="'Navegacao principal' | translate">
+    <a href="#apresentacao">{{ 'Apresentacao' | translate }}</a>
+    <a href="#projetos">{{ 'Projetos' | translate }}</a>
     <a href="#stack">Stack</a>
-    <a href="#cursos">Cursos</a>
-    <a href="#sobre">Sobre</a>
-    <a href="#contato">Contato</a>
+    <a href="#cursos">{{ 'Cursos' | translate }}</a>
+    <a href="#sobre">{{ 'Sobre' | translate }}</a>
+    <a href="#contato">{{ 'Contato' | translate }}</a>
+    <div class="language-switch" role="group" [attr.aria-label]="language.language() === 'pt' ? 'Idioma' : 'Language'">
+      <button type="button" lang="pt-BR" aria-label="Português" [attr.aria-pressed]="language.language() === 'pt'" (click)="language.setLanguage('pt')">PT</button>
+      <button type="button" lang="en" aria-label="English" [attr.aria-pressed]="language.language() === 'en'" (click)="language.setLanguage('en')">EN</button>
+    </div>
   </nav>
 </header>

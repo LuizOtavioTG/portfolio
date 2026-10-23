@@ -7,19 +7,19 @@
     [appScrollRevealStagger]="0.06"
     appScrollRevealStart="top 88%"
   >
-    <p class="eyebrow" appScrambleText>Portfólio Web / Etapa 01</p>
-    <h1>Desenvolvedor full-stack criando aplicações web.</h1>
-    <p class="hero-text" >{{ profile().intro }}</p>
+    <p class="eyebrow" [appScrambleText]="'Portfólio Web / Etapa 01' | translate">{{ 'Portfólio Web / Etapa 01' | translate }}</p>
+    <h1>{{ 'Desenvolvedor full-stack criando aplicações web.' | translate }}</h1>
+    <p class="hero-text" >{{ (profile().intro) | translate }}</p>
 
-    <div class="hero-actions" aria-label="Acoes principais">
+    <div class="hero-actions" [attr.aria-label]="'Acoes principais' | translate">
       <a class="button button-primary" href="mailto:bc.luizo@gmail.com" appHoverLift [appHoverLiftY]="-3">
-        Entrar em contato
+        {{ 'Entrar em contato' | translate }}
       </a>
       <a class="button button-secondary" href="#projetos" appHoverLift [appHoverLiftY]="-3">
-        Ver projetos
+        {{ 'Ver projetos' | translate }}
       </a>
     </div>
   </div>
 
-  <app-terminal-panel [owner]="profile().name" [role]="profile().role" />
+  <app-terminal-panel [owner]="profile().name" [role]="profile().role | translate" />
 </section>

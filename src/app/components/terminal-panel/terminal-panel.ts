@@ -1,13 +1,15 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, input } from '@angular/core';
+import { TranslatePipe } from '../../i18n/translate.pipe';
+import { afterRenderEffect, Component, ElementRef, OnDestroy, input } from '@angular/core';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 
 @Component({
+  imports: [TranslatePipe],
   selector: 'app-terminal-panel',
   templateUrl: './terminal-panel.html',
   styleUrl: './terminal-panel.scss',
 })
-export class TerminalPanel implements AfterViewInit, OnDestroy {
+export class TerminalPanel implements OnDestroy {
   readonly owner = input.required<string>();
   readonly role = input.required<string>();
   readonly buildOutput = `Initial chunk files | Names         |  Raw size
@@ -24,10 +26,11 @@ Application bundle generation complete. [2.109 seconds] - ${new Date().toISOStri
 
   constructor(private readonly elementRef: ElementRef<HTMLElement>) {
     gsap.registerPlugin(TextPlugin);
-  }
-
-  ngAfterViewInit(): void {
-    this.playTerminalSequence();
+    afterRenderEffect(() => {
+      this.role();
+      this.terminalTimeline?.kill();
+      this.playTerminalSequence();
+    });
   }
 
   ngOnDestroy(): void {
